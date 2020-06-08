@@ -19,5 +19,8 @@
   },
   "dependencies": {
     "interfaces": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.7"
   }
 }

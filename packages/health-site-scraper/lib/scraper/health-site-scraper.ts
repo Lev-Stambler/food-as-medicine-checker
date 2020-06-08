@@ -1,12 +1,14 @@
 import { IParser, IHealthRemedies } from "interfaces";
 import * as parsers from "../parsers";
+import fetch from "node-fetch";
 
 /**
  * Retrieves the HTML source code of a url
  * @param url
  */
-async function getSiteSource(url: string): Promise<string> {
-  return "";
+async function getSiteSourceHTML(url: string): Promise<string> {
+  const ret = await fetch(url);
+  return await ret.text();
 }
 
 /**
@@ -18,8 +20,8 @@ export async function scrapeHealthSite(
   url: string,
   parser: IParser
 ): Promise<IHealthRemedies[]> {
-  console.log('aa')
-  return await parser.parserF("asas");
+  const html = await getSiteSourceHTML(url);
+  return await parser.parserF(html);
 }
 
 export async function runAllScrapers() {

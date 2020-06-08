@@ -1,6 +1,6 @@
 export interface IHealthRemedies {
   symptom: string;
-  solution: string;
+  solutions: string[];
 }
 
 export interface IParser {
