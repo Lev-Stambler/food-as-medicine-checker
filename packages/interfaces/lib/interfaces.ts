@@ -3,6 +3,6 @@ export interface IHealthRemedies {
   solutions: string[];
 }
 
-export interface IParser {
-  parserF: (inputHTML: string) => Promise<IHealthRemedies[]>;
+export interface IParser<IRet> {
+  parserF: (inputHTML: string) => Promise<IRet[]>;
 }
