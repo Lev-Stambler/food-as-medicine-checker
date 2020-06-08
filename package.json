@@ -1,0 +1,18 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "@types/assert": "^1.4.7",
+    "@types/cheerio": "^0.22.18",
+    "@types/mocha": "^7.0.2",
+    "assert": "^2.0.0",
+    "lerna": "^3.22.0",
+    "mocha": "^7.2.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.0"
+  }
+}

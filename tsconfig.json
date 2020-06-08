@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "paths": {
+      "@food-medicine/*": ["packages/*/lib"]
+    }
+  },
+
+  "compileOnSave": true,
+  "exclude": ["node_modules", "dist"]
+}
