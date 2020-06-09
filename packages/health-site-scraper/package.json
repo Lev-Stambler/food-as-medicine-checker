@@ -14,7 +14,8 @@
     "lib"
   ],
   "scripts": {
-    "scrape:all": "lerna run --scope health-site-scraper run:all",
+    "run:all": "npm run build && node ./dist/index.js",
+    "build": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {

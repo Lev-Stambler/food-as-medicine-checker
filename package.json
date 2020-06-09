@@ -1,7 +1,9 @@
 {
   "name": "root",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "scrape:all": "lerna run --scope health-site-scraper run:all"
+  },
   "devDependencies": {
     "@types/assert": "^1.4.7",
     "@types/cheerio": "^0.22.18",

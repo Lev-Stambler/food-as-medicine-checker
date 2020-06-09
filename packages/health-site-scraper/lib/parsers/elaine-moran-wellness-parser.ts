@@ -1,10 +1,10 @@
-import { IParser, IHealthRemedies } from "interfaces";
+import { IParser, IHealthRemedies } from "@food-medicine/interfaces";
 import * as cheerio from "cheerio";
 
 /**
  * A parser for https://elainemoranwellness.com/food-as-medicine-database/search-by-health-condition
  */
-export const ElainemoranWellnessParser: IParser = {
+export const ElainemoranWellnessParser: IParser<IHealthRemedies> = {
   parserF: async (html) => {
     const $ = cheerio.load(html);
     const symptom = $("h1.entry-title").text().toLowerCase();
