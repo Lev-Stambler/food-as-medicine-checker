@@ -11,6 +11,7 @@ export async function runAllScrapers(): Promise<HealthRemedies[]> {
     'https://www.elainemoranwellness.com/food-as-medicine-database/search-by-health-condition/brain-improving/',
     'https://www.elainemoranwellness.com/food-as-medicine-database/search-by-health-condition/acne-clearing/'
   );
-  const remedies = remediesScraper.run();
+  const remedies = await remediesScraper.run();
+  console.log(remedies)
   return remedies;
 }

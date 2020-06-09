@@ -1,5 +1,6 @@
 import { Parser } from "@foodmedicine/interfaces";
 import fetch from "node-fetch";
+import { parse } from 'querystring';
 
 /**
  * A generalized scraper abstraction class
@@ -10,6 +11,7 @@ export class Scraper<IRet> {
   private urls: string[];
   private parser: Parser<IRet>;
   constructor(parser: Parser<IRet>, ...urls: string[]) {
+    this.parser = parser;
     this.urls = urls;
   }
 
