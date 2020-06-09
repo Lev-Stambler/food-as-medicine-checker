@@ -7,18 +7,16 @@ import * as cheerio from "cheerio";
 export const GoogleScholarsParser: Parser<string> = {
   parserF: async (html) => {
     const $ = cheerio.load(html);
-    const resultWrappers = $(".gs_r, .gs_or, .gs_scl");
-
+    const resultWrappers = $(".gs_r.gs_or.gs_scl");
     // ensure that only links to PDFs are found
-    const resultWrappersOnlyPDFs = resultWrappers
-      .toArray()
-      .filter((el) => $(el).find("div.gs_fl").text().indexOf("[PDF]") !== -1);
+    const resultWrappersOnlyPDFs = resultWrappers.filter((i, el) => $(el).children("div.gs_fl").text().indexOf("[PDF]") !== -1);
 
     // get the urls through the anchor tags
     const urls = resultWrappersOnlyPDFs.map((wrapper) =>
-      $(wrapper).find("h3.gs_rt a").attr("href")
-    );
+      $(wrapper).children("h3.gs_rt a").attr("href")
+    )
 
-    return urls;
+    console.log(resultWrappers.length, urls.toArray(), urls.length)
+return []
   },
 };
