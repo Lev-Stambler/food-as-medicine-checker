@@ -1,11 +1,26 @@
 import { IParser } from "./interfaces";
 import fetch from "node-fetch";
 
+/**
+ * A generalized scraper abstraction class
+ * This class can scrape different sites of pdfs
+ * @param IRet is the return interface for a scraped site or article
+ */
 export class Scraper<IRet> {
   private urls: string[];
   private parser: IParser<IRet>;
   constructor(parser: IParser<IRet>, ...urls: string[]) {
     this.urls = urls;
+  }
+
+
+  /**
+   * Retrieves the source code of a url
+   * @param url
+   */
+  async getSiteSource(url: string): Promise<string> {
+    const ret = await fetch(url);
+    return await ret.text();
   }
 
   /**
@@ -14,17 +29,8 @@ export class Scraper<IRet> {
    * @param url
    */
   async scrapeSiteSinglePage(url: string): Promise<IRet[]> {
-    const html = await this.getSiteSourceHTML(url);
-    return await this.parser.parserF(html);
-  }
-
-  /**
-   * Retrieves the HTML source code of a url
-   * @param url
-   */
-  async getSiteSourceHTML(url: string): Promise<string> {
-    const ret = await fetch(url);
-    return await ret.text();
+    const source = await this.getSiteSource(url);
+    return await this.parser.parserF(source);
   }
 
   /**

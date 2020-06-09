@@ -4,5 +4,5 @@ export interface IHealthRemedies {
 }
 
 export interface IParser<IRet> {
-  parserF: (inputHTML: string) => Promise<IRet[]>;
+  parserF: (inputSource: string) => Promise<IRet[]>;
 }

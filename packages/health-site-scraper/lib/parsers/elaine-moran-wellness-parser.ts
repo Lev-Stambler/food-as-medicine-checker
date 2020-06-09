@@ -8,7 +8,10 @@ export const ElainemoranWellnessParser: IParser<IHealthRemedies> = {
   parserF: async (html) => {
     const $ = cheerio.load(html);
     const symptom = $("h1.entry-title").text().toLowerCase();
+    
     // remove parantheses which are used as side notes
+    // replace & symbol with and
+    // make the text lowercase
     const foodItems = $("div.thrv_wrapper ul li")
       .map((i, el) =>
         $(el)
