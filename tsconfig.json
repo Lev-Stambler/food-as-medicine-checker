@@ -8,7 +8,7 @@
     "alwaysStrict": true,
     "noImplicitAny": true,
     "paths": {
-      "@food-medicine/*": ["packages/*/lib"]
+      "@foodmedicine/*": ["packages/*/lib"]
     }
   },
 

@@ -1,4 +1,4 @@
-import { IParser, IHealthRemedies } from "@food-medicine/interfaces";
+import { IParser, IHealthRemedies } from "@foodmedicine/interfaces";
 import * as cheerio from "cheerio";
 
 /**

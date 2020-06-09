@@ -1,5 +1,5 @@
 {
-  "name": "scholars-scraper",
+  "name": "@foodmedicine/scholarsscraper",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Lev Stambler <levstamb@gmail.com>",
@@ -18,9 +18,14 @@
     "url": "git+https://github.com/Lev-Stambler/food-as-medicine-checker.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "run:all": "npm run build && node ./dist/index.js",
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "tsc"
   },
   "bugs": {
     "url": "https://github.com/Lev-Stambler/food-as-medicine-checker/issues"
+  },
+  "dependencies": {
+    "@foodmedicine/interfaces": "^0.0.0"
   }
 }

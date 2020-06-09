@@ -1,5 +1,5 @@
 {
-  "name": "health-site-scraper",
+  "name": "@foodmedicine/healthsitescraper",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Lev Stambler <levstamb@gmail.com>",
@@ -15,11 +15,10 @@
   ],
   "scripts": {
     "run:all": "npm run build && node ./dist/index.js",
-    "build": "tsc",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "tsc"
   },
   "dependencies": {
-    "interfaces": "^0.0.0"
+    "@foodmedicine/interfaces": "^0.0.0"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.7"

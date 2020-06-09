@@ -1,8 +1,8 @@
 {
-  "name": "root",
+  "name": "@foodmedicine/root",
   "private": true,
   "scripts": {
-    "scrape:all": "lerna run --scope health-site-scraper run:all"
+    "scrape:all": "lerna run --scope @foodmedicine/healthsitescraper run:all"
   },
   "devDependencies": {
     "@types/assert": "^1.4.7",
@@ -16,5 +16,12 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "node-fetch": "^2.6.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/health-site-scraper/*",
+      "packages/interfaces/*",
+      "packages/scholars-scraper"
+    ]
   }
 }

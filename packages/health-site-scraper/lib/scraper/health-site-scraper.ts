@@ -1,4 +1,4 @@
-import { IParser, IHealthRemedies, Scraper } from "@food-medicine/interfaces";
+import { IParser, IHealthRemedies, Scraper } from "@foodmedicine/interfaces";
 import * as parsers from "../parsers";
 
 export async function runAllScrapers(): Promise<IHealthRemedies[]> {
