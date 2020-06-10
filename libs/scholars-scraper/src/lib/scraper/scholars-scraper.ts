@@ -32,7 +32,15 @@ export async function runScholarsScraper(
   );
   const remedeyScraper = new Scraper<ParsedArticleHead>(
     parsers.ScholarsParser,
-    ...queryUrls
+    ...queryUrls.map((url) => {
+      return {
+        url,
+        tag: {
+          recommendation: remedey.recommendations[0],
+          impacted: remedey.impacted,
+        },
+      };
+    })
   );
 
   // the following urls may have repeats
