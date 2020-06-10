@@ -17,7 +17,11 @@
     "baseUrl": ".",
     "paths": {
       "@foodmedicine/interfaces": ["libs/interfaces/src/index.ts"],
-      "@foodmedicine/scraper": ["libs/scraper/src/index.ts"]
+      "@foodmedicine/scraper": ["libs/scraper/src/index.ts"],
+      "@foodmedicine/scholars-scraper": ["libs/scholars-scraper/src/index.ts"],
+      "@foodmedicine/health-site-scraper": [
+        "libs/health-site-scraper/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

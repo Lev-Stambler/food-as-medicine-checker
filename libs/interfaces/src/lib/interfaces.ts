@@ -3,10 +3,10 @@ export interface HealthRemedies {
   recommendations: string[];
 }
 
-export interface ParsedArticle {
+export interface ParsedArticleHead {
   id: string;
   title: string;
-  downloadLink: string;
+  xmlFullTextDownloadLink: string;
 }
 
 export interface Parser<IRet> {
