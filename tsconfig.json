@@ -21,7 +21,8 @@
       "@foodmedicine/scholars-scraper": ["libs/scholars-scraper/src/index.ts"],
       "@foodmedicine/health-site-scraper": [
         "libs/health-site-scraper/src/index.ts"
-      ]
+      ],
+      "@foodmedicine/article-parser": ["libs/article-parser/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

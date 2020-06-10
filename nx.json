@@ -30,10 +30,16 @@
     "scholars-scraper": {
       "tags": []
     },
+    "scraper-runner": {
+      "tags": []
+    },
     "interfaces": {
       "tags": []
     },
     "scraper": {
+      "tags": []
+    },
+    "article-parser": {
       "tags": []
     }
   }

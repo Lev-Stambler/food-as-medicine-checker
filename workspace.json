@@ -155,6 +155,99 @@
           }
         }
       }
+    },
+    "article-parser": {
+      "root": "libs/article-parser",
+      "sourceRoot": "libs/article-parser/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/article-parser/.eslintrc",
+            "tsConfig": [
+              "libs/article-parser/tsconfig.lib.json",
+              "libs/article-parser/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/article-parser/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/article-parser/jest.config.js",
+            "tsConfig": "libs/article-parser/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "scraper-runner": {
+      "root": "apps/scraper-runner",
+      "sourceRoot": "apps/scraper-runner/src",
+      "projectType": "application",
+      "prefix": "scraper-runner",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/scraper-runner",
+            "main": "apps/scraper-runner/src/main.ts",
+            "tsConfig": "apps/scraper-runner/tsconfig.app.json",
+            "assets": [
+              "apps/scraper-runner/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/scraper-runner/src/environments/environment.ts",
+                  "with": "apps/scraper-runner/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "scraper-runner:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/scraper-runner/.eslintrc",
+            "tsConfig": [
+              "apps/scraper-runner/tsconfig.app.json",
+              "apps/scraper-runner/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/scraper-runner/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/scraper-runner/jest.config.js",
+            "tsConfig": "apps/scraper-runner/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -219,5 +312,5 @@
       }
     }
   },
-  "defaultProject": "scraper"
+  "defaultProject": "scraper-runner"
 }
