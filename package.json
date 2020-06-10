@@ -29,6 +29,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "fs": "0.0.1-security",
+    "natural": "^2.1.5",
     "node-fetch": "^2.6.0",
     "xml2js": "^0.4.23"
   },
@@ -39,6 +40,7 @@
     "@nrwl/workspace": "9.3.0",
     "@types/cheerio": "^0.22.18",
     "@types/jest": "25.1.4",
+    "@types/natural": "^0.6.3",
     "@types/node": "~8.9.4",
     "@typescript-eslint/eslint-plugin": "2.19.2",
     "@typescript-eslint/parser": "2.19.2",

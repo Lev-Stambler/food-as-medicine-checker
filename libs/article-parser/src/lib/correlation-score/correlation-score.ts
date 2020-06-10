@@ -2,12 +2,11 @@ import {
   ParsedArticleHead,
   Parser,
   ParsedArticle,
-  HealthRemedies,
   ParsedArticleParagraph,
 } from '@foodmedicine/interfaces';
 import * as fetch from 'node-fetch';
-import { parse } from 'querystring';
 import { correlationWeights } from './correlation-constants';
+import * as natural from 'natural';
 
 async function downloadArticle(url: string): Promise<string> {
   const ret = await fetch(url);
@@ -15,19 +14,39 @@ async function downloadArticle(url: string): Promise<string> {
 }
 
 function findWordFreq(word: string, paragraph: string): number {
-  console.log(paragraph);
   return paragraph.split(word).length - 1;
 }
 
+/**
+ * Compute the correlation score based off of the inputs
+ * Current features include impact frequencies, recommendation frequencies, impact x recommendation
+ * Paragraph length
+ * @param impactFreq
+ * @param recommendationFreq
+ */
 async function computeScore(
   impactFreq: number,
-  recommendationFreq: number
+  recommendationFreq: number,
+  paragraphWordCount: number
 ): Promise<number> {
-  const addedFreqs =
-    impactFreq * correlationWeights.impactWordFreq +
+  const impactScore = impactFreq * correlationWeights.impactWordFreq;
+  const recommendationScore =
     recommendationFreq * correlationWeights.recommendationWordFreq;
+  const crossScore =
+    impactFreq *
+    recommendationFreq *
+    correlationWeights.impactCrossRecommendation;
+  const paragraphLengthScore =
+    paragraphWordCount * correlationWeights.paragraphLength;
   // ensures that both impact and recommendation are seen in the same paragraph
-  return addedFreqs * impactFreq * recommendationFreq;
+  return impactScore + recommendationScore + crossScore + paragraphLengthScore;
+}
+
+function stemString(input: string) {
+  return input
+    .split(' ')
+    .map((word) => natural.PorterStemmer.stem(word))
+    .join(' ');
 }
 
 async function getParagraphCorrelationScore(
@@ -35,9 +54,13 @@ async function getParagraphCorrelationScore(
   impacted: string,
   recommendation: string
 ): Promise<ParsedArticleParagraph> {
+  const impactedStem = stemString(impacted);
+  const paragraphStemmed = stemString(paragraph);
+  const recommendationStem = stemString(recommendation);
   const correlationScore = await computeScore(
-    findWordFreq(impacted, paragraph),
-    findWordFreq(recommendation, paragraph)
+    findWordFreq(impactedStem, paragraphStemmed),
+    findWordFreq(recommendationStem, paragraphStemmed),
+    paragraph.split(' ').length
   );
   return {
     body: paragraph,
