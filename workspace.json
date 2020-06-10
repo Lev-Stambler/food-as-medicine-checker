@@ -2,117 +2,56 @@
   "version": 1,
   "projects": {
     "health-site-scraper": {
-      "root": "apps/health-site-scraper",
-      "sourceRoot": "apps/health-site-scraper/src",
-      "projectType": "application",
-      "prefix": "health-site-scraper",
+      "root": "libs/health-site-scraper",
+      "sourceRoot": "libs/health-site-scraper/src",
+      "projectType": "library",
       "schematics": {},
       "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/health-site-scraper",
-            "main": "apps/health-site-scraper/src/main.ts",
-            "tsConfig": "apps/health-site-scraper/tsconfig.app.json",
-            "assets": ["apps/health-site-scraper/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/health-site-scraper/src/environments/environment.ts",
-                  "with": "apps/health-site-scraper/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "health-site-scraper:build"
-          }
-        },
         "lint": {
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "apps/health-site-scraper/.eslintrc",
+            "config": "libs/health-site-scraper/.eslintrc",
             "tsConfig": [
-              "apps/health-site-scraper/tsconfig.app.json",
-              "apps/health-site-scraper/tsconfig.spec.json"
+              "libs/health-site-scraper/tsconfig.lib.json",
+              "libs/health-site-scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/health-site-scraper/**"]
+            "exclude": ["**/node_modules/**", "!libs/health-site-scraper/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/health-site-scraper/jest.config.js",
-            "tsConfig": "apps/health-site-scraper/tsconfig.spec.json",
+            "jestConfig": "libs/health-site-scraper/jest.config.js",
+            "tsConfig": "libs/health-site-scraper/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
       }
     },
     "scholars-scraper": {
-      "root": "apps/scholars-scraper",
-      "sourceRoot": "apps/scholars-scraper/src",
-      "projectType": "application",
-      "prefix": "scholars-scraper",
+      "root": "libs/scholars-scraper",
+      "sourceRoot": "libs/scholars-scraper/src",
+      "projectType": "library",
       "schematics": {},
       "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/scholars-scraper",
-            "main": "apps/scholars-scraper/src/main.ts",
-            "tsConfig": "apps/scholars-scraper/tsconfig.app.json",
-            "assets": ["apps/scholars-scraper/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/scholars-scraper/src/environments/environment.ts",
-                  "with": "apps/scholars-scraper/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "scholars-scraper:build"
-          }
-        },
         "lint": {
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "apps/scholars-scraper/.eslintrc",
+            "config": "libs/scholars-scraper/.eslintrc",
             "tsConfig": [
-              "apps/scholars-scraper/tsconfig.app.json",
-              "apps/scholars-scraper/tsconfig.spec.json"
+              "libs/scholars-scraper/tsconfig.lib.json",
+              "libs/scholars-scraper/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/scholars-scraper/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/scholars-scraper/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/scholars-scraper/jest.config.js",
-            "tsConfig": "apps/scholars-scraper/tsconfig.spec.json",
+            "jestConfig": "libs/scholars-scraper/jest.config.js",
+            "tsConfig": "libs/scholars-scraper/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
