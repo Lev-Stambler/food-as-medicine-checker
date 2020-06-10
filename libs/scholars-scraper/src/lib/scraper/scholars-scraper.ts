@@ -15,7 +15,8 @@ function createScholarsUrl(
   pageSize = 25
 ): string {
   return encodeURI(
-    `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${solution} for ${impacted}&synonym=true&pageSize=${pageSize}`
+    // TOOD change synonym back to true once synonym is implemented in the correlation algorithm
+    `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${solution} for ${impacted}&synonym=false&pageSize=${pageSize}`
   );
 }
 

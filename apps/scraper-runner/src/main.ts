@@ -5,7 +5,7 @@ import * as fs from 'fs';
 async function run() {
   const mockRemedey = {
     impacted: 'acne',
-    recommendations: ['cabbage'],
+    recommendations: ['alcohol'],
   };
   const articleHeads = await scholarsScrape.runScholarsScraper(mockRemedey);
   console.log(articleHeads[0]);
@@ -22,7 +22,11 @@ async function run() {
       articleHead,
       articleParser.EbiParser
     );
-    fs.writeFileSync(`test-out/${i}.json`, JSON.stringify(ret))
+    // sort by descending order
+    ret.paragraphs = ret.paragraphs.sort(
+      (a, b) => b.correlationScore - a.correlationScore
+    );
+    fs.writeFileSync(`test-out/${i}.json`, JSON.stringify(ret));
     return ret;
   });
   const res = await Promise.all(downloadProms);
