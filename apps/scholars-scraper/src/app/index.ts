@@ -1,4 +1,4 @@
-import * as scraper from "./scraper/google-scholars-scraper";
+import * as scraper from "./scraper/scholars-scraper";
 
 scraper.runScholarsScraper({
   impacted: "acne",
