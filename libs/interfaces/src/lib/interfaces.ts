@@ -1,6 +1,12 @@
 export interface HealthRemedies {
-  symptom: string;
-  solutions: string[];
+  impacted: string;
+  recommendations: string[];
+}
+
+export interface ParsedArticle {
+  id: string;
+  title: string;
+  downloadLink: string;
 }
 
 export interface Parser<IRet> {
