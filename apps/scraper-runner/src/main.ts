@@ -1,5 +1,6 @@
 import * as scholarsScrape from '@foodmedicine/scholars-scraper';
 import * as articleParser from '@foodmedicine/article-parser';
+import * as healthSiteScraper from '@foodmedicine/health-site-scraper';
 import * as fs from 'fs';
 import {
   ParsedArticleParagraph,
@@ -7,17 +8,33 @@ import {
 } from '@foodmedicine/interfaces';
 
 function getTopPercentage(arr: any[], percent = 5) {
-  return arr.slice(0, Math.floor(arr.length * percent / 100));
+  return arr.slice(0, Math.floor((arr.length * percent) / 100));
 }
 
-async function run() {
-  const mockRemedey = {
-    impacted: 'brain improving',
-    recommendations: ['ginger'],
-  };
+async function main() {
+  const healthRemedies = await healthSiteScraper.runAllScrapers();
+  const findCorrelatedParagraphsProms = healthRemedies.map(
+    async (healthRemedey) => {
+      const recommendationResults = healthRemedey.recommendations.map(
+        (recommendation) =>
+          findCorrelatedParagraphs(healthRemedey.impacted, recommendation)
+      );
+      return await Promise.all(recommendationResults);
+    }
+  );
+  await Promise.all(findCorrelatedParagraphsProms);
+}
+
+async function findCorrelatedParagraphs(
+  impacted: string,
+  recommendation: string
+) {
+  console.log(
+    `Starting to find correlation of ${recommendation} for ${impacted}`
+  );
   const articleHeads = await scholarsScrape.runScholarsScraper(
-    mockRemedey.impacted,
-    mockRemedey.recommendations[0]
+    impacted,
+    recommendation
   );
   const downloadProms = articleHeads.map(async (articleHead) => {
     const evaluatedArticle = await articleParser.evaluateArticle(
@@ -41,8 +58,11 @@ async function run() {
     (a, b) => b.correlationScore - a.correlationScore
   );
   fs.writeFileSync(
-    `tmp/${mockRemedey.impacted}-${mockRemedey.recommendations}.json`,
+    `tmp/${impacted}-${recommendation}.json`,
     JSON.stringify(getTopPercentage(allParagraphsStandalone))
   );
+  console.log(
+    `Done finding correlation of ${recommendation} for ${impacted}`
+  );
 }
-run();
+main();
