@@ -1,6 +1,6 @@
-import { HealthRemedies, ParsedArticleHead, } from "@foodmedicine/interfaces";
-import { Scraper } from "@foodmedicine/scraper"
-import * as parsers from "../parsers";
+import { HealthRemedies, ParsedArticleHead } from '@foodmedicine/interfaces';
+import { Scraper } from '@foodmedicine/scraper';
+import * as parsers from '../parsers';
 
 /**
  * Construct the google scholars url which will be scraped
@@ -29,14 +29,12 @@ export async function runScholarsScraper(
   const queryUrls = remedey.recommendations.map((solution) =>
     createScholarsUrl(remedey.impacted, solution)
   );
-  console.log(queryUrls)
   const remedeyScraper = new Scraper<ParsedArticleHead>(
     parsers.ScholarsParser,
     ...queryUrls
   );
-  
-  // the following urls may have repeats
-  const urls = await remedeyScraper.run();
 
-  return urls
+  // the following urls may have repeats
+  const articleHeads = await remedeyScraper.run();
+  return articleHeads;
 }
