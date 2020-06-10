@@ -3,6 +3,6 @@ export const correlationWeights = {
     impactSynonymWordFreq: 0.7,
     recommendationWordFreq: 1,
     recommendationSynonymWordFreq: 0.7,
-    impactCrossRecommendation: 3,
+    impactCrossRecommendation: 8,
     paragraphLength: 0,
 }

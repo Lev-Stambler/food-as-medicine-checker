@@ -26,19 +26,18 @@ function createScholarsUrl(
  * @returns an array of PDF urls
  */
 export async function runScholarsScraper(
-  remedey: HealthRemedies
+  impacted: string,
+  recommendation: string
 ): Promise<ParsedArticleHead[]> {
-  const queryUrls = remedey.recommendations.map((solution) =>
-    createScholarsUrl(remedey.impacted, solution)
-  );
+  const queryUrls = [createScholarsUrl(impacted, recommendation)];
   const remedeyScraper = new Scraper<ParsedArticleHead>(
     parsers.ScholarsParser,
     ...queryUrls.map((url) => {
       return {
         url,
         tag: {
-          recommendation: remedey.recommendations[0],
-          impacted: remedey.impacted,
+          recommendation: recommendation,
+          impacted: impacted,
         },
       };
     })

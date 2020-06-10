@@ -8,13 +8,30 @@ import * as fetch from 'node-fetch';
 import { correlationWeights } from './correlation-constants';
 import * as natural from 'natural';
 
+const tokenizer = new natural.WordTokenizer();
+
 async function downloadArticle(url: string): Promise<string> {
   const ret = await fetch(url);
   return await ret.text();
 }
 
-function findWordFreq(word: string, paragraph: string): number {
-  return paragraph.split(word).length - 1;
+/**
+ * Find word frequencies through fuzzy search
+ * @param word
+ * @param paragraph
+ */
+function findWordFreqFuzzy(word: string, paragraph: string): number {
+  const tokenizedParagraph = tokenizer.tokenize(paragraph);
+  const overallFreqScore = tokenizedParagraph.reduce(
+    (freq: number, paragraphWord) => {
+      // distance ranges from 0 to 1. 1 being a perfect match
+      const distance = natural.JaroWinklerDistance(word, paragraphWord);
+      return freq + (distance > 0.85 ? distance : 0);
+    },
+    0
+  );
+  return overallFreqScore;
+  // return paragraph.split(word).length - 1;
 }
 
 /**
@@ -43,10 +60,7 @@ async function computeScore(
 }
 
 function stemString(input: string) {
-  return input
-    .split(' ')
-    .map((word) => natural.PorterStemmer.stem(word))
-    .join(' ');
+  return natural.PorterStemmer.tokenizeAndStem(input).join(' ');
 }
 
 async function getParagraphCorrelationScore(
@@ -58,8 +72,8 @@ async function getParagraphCorrelationScore(
   const paragraphStemmed = stemString(paragraph);
   const recommendationStem = stemString(recommendation);
   const correlationScore = await computeScore(
-    findWordFreq(impactedStem, paragraphStemmed),
-    findWordFreq(recommendationStem, paragraphStemmed),
+    findWordFreqFuzzy(impactedStem, paragraphStemmed),
+    findWordFreqFuzzy(recommendationStem, paragraphStemmed),
     paragraph.split(' ').length
   );
   return {
