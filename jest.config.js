@@ -5,5 +5,5 @@ transform: {
 },
 resolver: '@nrwl/jest/plugins/resolver',
 moduleFileExtensions: ['ts', 'js', 'html'],
-coverageReporters: ['html']
+coverageReporters: ['html', 'js']
 };
