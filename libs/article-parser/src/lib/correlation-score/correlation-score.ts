@@ -5,7 +5,7 @@ import {
   ParsedArticleParagraph,
 } from '@foodmedicine/interfaces';
 import * as fetch from 'node-fetch';
-import { correlationWeights } from './correlation-constants';
+import { correlationWeights, cutOffs } from './correlation-constants';
 import * as natural from 'natural';
 
 const tokenizer = new natural.WordTokenizer();
@@ -26,7 +26,7 @@ function findWordFreqFuzzy(word: string, paragraph: string): number {
     (freq: number, paragraphWord) => {
       // distance ranges from 0 to 1. 1 being a perfect match
       const distance = natural.JaroWinklerDistance(word, paragraphWord);
-      return freq + (distance > 0.85 ? distance : 0);
+      return freq + (distance > cutOffs.minimumWordDistance ? distance : 0);
     },
     0
   );

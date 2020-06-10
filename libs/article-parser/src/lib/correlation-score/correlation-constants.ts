@@ -6,3 +6,7 @@ export const correlationWeights = {
     impactCrossRecommendation: 8,
     paragraphLength: 0,
 }
+
+export const cutOffs = {
+    minimumWordDistance: 0.85
+}
