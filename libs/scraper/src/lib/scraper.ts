@@ -1,5 +1,5 @@
-import { Parser } from "@foodmedicine/interfaces";
-import fetch from "node-fetch";
+import { Parser, UrlWithTag } from '@foodmedicine/interfaces';
+import fetch from 'node-fetch';
 import { parse } from 'querystring';
 
 /**
@@ -8,13 +8,12 @@ import { parse } from 'querystring';
  * @param IRet is the return interface for a scraped site or article
  */
 export class Scraper<IRet> {
-  private urls: string[];
+  private urlsWithTags: UrlWithTag[];
   private parser: Parser<IRet>;
-  constructor(parser: Parser<IRet>, ...urls: string[]) {
+  constructor(parser: Parser<IRet>, ...urlsWithTags: UrlWithTag[]) {
     this.parser = parser;
-    this.urls = urls;
+    this.urlsWithTags = urlsWithTags;
   }
-
 
   /**
    * Retrieves the source code of a url
@@ -27,12 +26,12 @@ export class Scraper<IRet> {
 
   /**
    * Finds associated health remedies found on one page on a particular website
-   * @param parser
    * @param url
+   * @param opts 
    */
-  async scrapeSiteSinglePage(url: string): Promise<IRet[]> {
+  async scrapeSiteSinglePage(url: string, opts: any): Promise<IRet[]> {
     const source = await this.getSiteSource(url);
-    return await this.parser.parserF(source);
+    return await this.parser.parserF(source, opts);
   }
 
   /**
@@ -42,8 +41,10 @@ export class Scraper<IRet> {
    */
   public async run(): Promise<IRet[]> {
     // create an array of promises to concurrently perform web scraping
-    const pageScrapingProms = this.urls.map((url) =>
-      this.scrapeSiteSinglePage(url)
+    const pageScrapingProms = this.urlsWithTags.map((urlWithTag) =>
+      this.scrapeSiteSinglePage(urlWithTag.url, {
+        tag: urlWithTag.tag,
+      })
     );
     const scrapedRes = await Promise.all(pageScrapingProms);
 
