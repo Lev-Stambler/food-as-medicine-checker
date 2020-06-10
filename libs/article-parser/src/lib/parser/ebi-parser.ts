@@ -26,7 +26,6 @@ export const EbiParser: Parser<ParsedArticle> = {
     const paragraphTexts: string[] = $('p')
       .map((i, el) => $(el).text())
       .get();
-    console.log(paragraphTexts[0])
     const paragraphsProms: Promise<
       ParsedArticleParagraph
     >[] = paragraphTexts.map((paragraphText) =>
