@@ -16,7 +16,10 @@
               "libs/health-site-scraper/tsconfig.lib.json",
               "libs/health-site-scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/health-site-scraper/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/health-site-scraper/**"
+            ]
           }
         },
         "test": {
@@ -44,7 +47,10 @@
               "libs/scholars-scraper/tsconfig.lib.json",
               "libs/scholars-scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/scholars-scraper/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/scholars-scraper/**"
+            ]
           }
         },
         "test": {
@@ -72,7 +78,10 @@
               "libs/interfaces/tsconfig.lib.json",
               "libs/interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/interfaces/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/interfaces/**"
+            ]
           }
         },
         "test": {
@@ -86,28 +95,62 @@
       }
     },
     "scraper": {
-      "root": "libs/scraper",
-      "sourceRoot": "libs/scraper/src",
-      "projectType": "library",
+      "root": "apps/scraper",
+      "sourceRoot": "apps/scraper/src",
+      "projectType": "application",
+      "prefix": "scraper",
       "schematics": {},
       "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/scraper",
+            "main": "apps/scraper/src/main.ts",
+            "tsConfig": "apps/scraper/tsconfig.app.json",
+            "assets": [
+              "apps/scraper/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/scraper/src/environments/environment.ts",
+                  "with": "apps/scraper/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "scraper:build"
+          }
+        },
         "lint": {
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "libs/scraper/.eslintrc",
+            "config": "apps/scraper/.eslintrc",
             "tsConfig": [
-              "libs/scraper/tsconfig.lib.json",
-              "libs/scraper/tsconfig.spec.json"
+              "apps/scraper/tsconfig.app.json",
+              "apps/scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/scraper/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/scraper/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/scraper/jest.config.js",
-            "tsConfig": "libs/scraper/tsconfig.spec.json",
+            "jestConfig": "apps/scraper/jest.config.js",
+            "tsConfig": "apps/scraper/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -176,5 +219,5 @@
       }
     }
   },
-  "defaultProject": "health-site-scraper"
+  "defaultProject": "scraper"
 }
