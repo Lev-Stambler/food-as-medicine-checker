@@ -17,5 +17,9 @@ export async function getParagraphs(
 ): Promise<ParsedArticle> {
   const inputXML = await downloadArticle(articleHead.xmlFullTextDownloadLink);
   // Parser functions return an array, but in this case, only the first result is relevant
-  return (await parser.parserF(inputXML))[0];
+  return (
+    await parser.parserF(inputXML, {
+      parsedArticleHead: articleHead,
+    })
+  )[0];
 }

@@ -6,7 +6,8 @@ async function run() {
     impacted: 'acne',
     recommendations: ['cabbage'],
   });
-  console.log(articleHeads)
+  console.log(articleHeads[0]);
+  await articleParser.getParagraphs(articleHeads[0], articleParser.EbiParser);
   // const downloadProms = articleHeads.map((articleHead) =>
   //   articleParser.downloadAndParseArticles(articleHead)
   // );
