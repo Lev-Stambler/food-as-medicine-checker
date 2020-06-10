@@ -17,6 +17,5 @@ export async function runAllScrapers(): Promise<HealthRemedies[]> {
     })
   );
   const remedies = await remediesScraper.run();
-  console.log(remedies);
   return remedies;
 }

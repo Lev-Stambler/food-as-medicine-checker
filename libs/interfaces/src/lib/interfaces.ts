@@ -41,6 +41,11 @@ export interface ParsedArticleParagraph {
   correlationScore: number;
 }
 
+export interface ParsedArticleParagraphStandalone
+  extends ParsedArticleParagraph {
+  head: ParsedArticleHead;
+}
+
 export interface Parser<IRet> {
   parserF: (inputSource: string, opts?: any) => Promise<IRet[]>;
 }
