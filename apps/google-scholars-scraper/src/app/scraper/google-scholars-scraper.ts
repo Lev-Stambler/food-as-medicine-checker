@@ -4,31 +4,32 @@ import * as parsers from "../parsers";
 
 /**
  * Construct the google scholars url which will be scraped
- * @param symptom
+ * @param impacted
  * @param solution
  * @param start the starting article number
  */
 function createScholarsUrl(
-  symptom: string,
+  impacted: string,
   solution: string,
-  start = 0
+  pageSize = 25
 ): string {
   return encodeURI(
-    `https://scholar.google.com/scholar?q=${solution} for ${symptom} "pdf"&start=${start}`
+    `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${solution} for ${impacted}&synonym=true&pageSize=25`
   );
 }
 
 /**
  * Find all the PDF urls which could have related articles to the remedey
- * @param remedey one particular symptom and a set of solutions
+ * @param remedey one particular impacted and a set of recommendations
  * @returns an array of PDF urls
  */
 export async function runScholarsScraper(
   remedey: HealthRemedies
 ): Promise<string[]> {
-  const queryUrls = remedey.solutions.map((solution) =>
-    createScholarsUrl(remedey.symptom, solution)
+  const queryUrls = remedey.recommendations.map((solution) =>
+    createScholarsUrl(remedey.impacted, solution)
   );
+  console.log(queryUrls)
   const remedeyScraper = new Scraper<string>(
     parsers.GoogleScholarsParser,
     ...queryUrls

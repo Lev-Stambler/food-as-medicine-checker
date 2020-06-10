@@ -7,7 +7,7 @@ import * as cheerio from "cheerio";
 export const ElainemoranWellnessParser: Parser<HealthRemedies> = {
   parserF: async (html) => {
     const $ = cheerio.load(html);
-    const symptom = $("h1.entry-title").text().toLowerCase();
+    const impacted = $("h1.entry-title").text().toLowerCase();
     
     // remove parantheses which are used as side notes
     // replace & symbol with and
@@ -23,8 +23,8 @@ export const ElainemoranWellnessParser: Parser<HealthRemedies> = {
       .get();
     const res: HealthRemedies[] = [
       {
-        symptom,
-        solutions: foodItems,
+        impacted,
+        recommendations: foodItems,
       },
     ];
     return res;
