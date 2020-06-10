@@ -58,20 +58,20 @@
         }
       }
     },
-    "google-scholars-scraper": {
-      "root": "apps/google-scholars-scraper",
-      "sourceRoot": "apps/google-scholars-scraper/src",
+    "scholars-scraper": {
+      "root": "apps/scholars-scraper",
+      "sourceRoot": "apps/scholars-scraper/src",
       "projectType": "application",
-      "prefix": "google-scholars-scraper",
+      "prefix": "scholars-scraper",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/apps/google-scholars-scraper",
-            "main": "apps/google-scholars-scraper/src/main.ts",
-            "tsConfig": "apps/google-scholars-scraper/tsconfig.app.json",
-            "assets": ["apps/google-scholars-scraper/src/assets"]
+            "outputPath": "dist/apps/scholars-scraper",
+            "main": "apps/scholars-scraper/src/main.ts",
+            "tsConfig": "apps/scholars-scraper/tsconfig.app.json",
+            "assets": ["apps/scholars-scraper/src/assets"]
           },
           "configurations": {
             "production": {
@@ -80,8 +80,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/google-scholars-scraper/src/environments/environment.ts",
-                  "with": "apps/google-scholars-scraper/src/environments/environment.prod.ts"
+                  "replace": "apps/scholars-scraper/src/environments/environment.ts",
+                  "with": "apps/scholars-scraper/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -90,29 +90,29 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "google-scholars-scraper:build"
+            "buildTarget": "scholars-scraper:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "apps/google-scholars-scraper/.eslintrc",
+            "config": "apps/scholars-scraper/.eslintrc",
             "tsConfig": [
-              "apps/google-scholars-scraper/tsconfig.app.json",
-              "apps/google-scholars-scraper/tsconfig.spec.json"
+              "apps/scholars-scraper/tsconfig.app.json",
+              "apps/scholars-scraper/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!apps/google-scholars-scraper/**"
+              "!apps/scholars-scraper/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/google-scholars-scraper/jest.config.js",
-            "tsConfig": "apps/google-scholars-scraper/tsconfig.spec.json",
+            "jestConfig": "apps/scholars-scraper/jest.config.js",
+            "tsConfig": "apps/scholars-scraper/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

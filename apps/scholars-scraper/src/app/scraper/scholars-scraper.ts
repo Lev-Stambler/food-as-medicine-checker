@@ -14,7 +14,7 @@ function createScholarsUrl(
   pageSize = 25
 ): string {
   return encodeURI(
-    `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${solution} for ${impacted}&synonym=true&pageSize=25`
+    `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${solution} for ${impacted}&synonym=true&pageSize=${pageSize}`
   );
 }
 
