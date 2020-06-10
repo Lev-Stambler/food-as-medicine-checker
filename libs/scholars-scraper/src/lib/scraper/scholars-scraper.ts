@@ -1,4 +1,5 @@
 import { HealthRemedies, ParsedArticleHead } from '@foodmedicine/interfaces';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Scraper } from '@foodmedicine/scraper';
 import * as parsers from '../parsers';
 
