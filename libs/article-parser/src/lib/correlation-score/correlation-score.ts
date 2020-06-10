@@ -15,7 +15,7 @@ async function downloadArticle(url: string): Promise<string> {
 }
 
 function findWordFreq(word: string, paragraph: string): number {
-  console.log(paragraph)
+  console.log(paragraph);
   return paragraph.split(word).length - 1;
 }
 
@@ -23,10 +23,11 @@ async function computeScore(
   impactFreq: number,
   recommendationFreq: number
 ): Promise<number> {
-  return (
+  const addedFreqs =
     impactFreq * correlationWeights.impactWordFreq +
-    recommendationFreq * correlationWeights.recommendationWordFreq
-  );
+    recommendationFreq * correlationWeights.recommendationWordFreq;
+  // ensures that both impact and recommendation are seen in the same paragraph
+  return addedFreqs * impactFreq * recommendationFreq;
 }
 
 async function getParagraphCorrelationScore(
