@@ -14,10 +14,14 @@
     "lib"
   ],
   "scripts": {
-    "run:all": "tsc && node ./dist/index.js",
+    "run:all": "npm run build && node ./dist/index.js",
+    "build": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
     "interfaces": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.7"
   }
 }

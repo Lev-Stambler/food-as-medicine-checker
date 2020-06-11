@@ -1,4 +1,3 @@
-import { runAllScrapers} from "./scraper/health-site-scraper";
+import { runAllScrapers } from "./scraper/health-site-scraper";
 
-console.log('aaaaa')
-runAllScrapers()
+runAllScrapers();

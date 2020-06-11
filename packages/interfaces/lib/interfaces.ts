@@ -1,8 +1,8 @@
 export interface IHealthRemedies {
   symptom: string;
-  solution: string;
+  solutions: string[];
 }
 
-export interface IParser {
-  parserF: (inputHTML: string) => Promise<IHealthRemedies[]>;
+export interface IParser<IRet> {
+  parserF: (inputSource: string) => Promise<IRet[]>;
 }
