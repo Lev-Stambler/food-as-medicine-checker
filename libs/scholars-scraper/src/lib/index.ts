@@ -1,1 +1,1 @@
-export * from './scraper/scholars-scraper'
+export * from './scraper/scholars-scraper';

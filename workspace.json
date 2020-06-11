@@ -16,10 +16,7 @@
               "libs/health-site-scraper/tsconfig.lib.json",
               "libs/health-site-scraper/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/health-site-scraper/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/health-site-scraper/**"]
           }
         },
         "test": {
@@ -47,10 +44,7 @@
               "libs/scholars-scraper/tsconfig.lib.json",
               "libs/scholars-scraper/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/scholars-scraper/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/scholars-scraper/**"]
           }
         },
         "test": {
@@ -78,10 +72,7 @@
               "libs/interfaces/tsconfig.lib.json",
               "libs/interfaces/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/interfaces/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/interfaces/**"]
           }
         },
         "test": {
@@ -107,9 +98,7 @@
             "outputPath": "dist/apps/scraper",
             "main": "apps/scraper/src/main.ts",
             "tsConfig": "apps/scraper/tsconfig.app.json",
-            "assets": [
-              "apps/scraper/src/assets"
-            ]
+            "assets": ["apps/scraper/src/assets"]
           },
           "configurations": {
             "production": {
@@ -140,10 +129,7 @@
               "apps/scraper/tsconfig.app.json",
               "apps/scraper/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/scraper/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/scraper/**"]
           }
         },
         "test": {
@@ -171,10 +157,7 @@
               "libs/article-parser/tsconfig.lib.json",
               "libs/article-parser/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/article-parser/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/article-parser/**"]
           }
         },
         "test": {
@@ -200,9 +183,7 @@
             "outputPath": "dist/apps/scraper-runner",
             "main": "apps/scraper-runner/src/main.ts",
             "tsConfig": "apps/scraper-runner/tsconfig.app.json",
-            "assets": [
-              "apps/scraper-runner/src/assets"
-            ]
+            "assets": ["apps/scraper-runner/src/assets"]
           },
           "configurations": {
             "production": {
@@ -233,10 +214,7 @@
               "apps/scraper-runner/tsconfig.app.json",
               "apps/scraper-runner/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/scraper-runner/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/scraper-runner/**"]
           }
         },
         "test": {

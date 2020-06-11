@@ -1,1 +1,1 @@
-export * from './scraper/health-site-scraper'
+export * from './scraper/health-site-scraper';

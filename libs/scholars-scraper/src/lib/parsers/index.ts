@@ -1,1 +1,1 @@
-export * from './scholars-parser'
+export * from './scholars-parser';

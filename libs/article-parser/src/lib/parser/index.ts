@@ -1,1 +1,1 @@
-export * from './ebi-parser'
+export * from './ebi-parser';

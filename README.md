@@ -16,6 +16,7 @@ This project will use web scraping techniques on sites which make recommendation
 The audience for this project are end consumers looking to better understand the recommendations put forth by food as medicine.
 
 Priorities:
+
 - P0
   - Scraped recommendations for specific symptoms or desired effects
   - A collection of articles related to the scraped recommendations
@@ -111,4 +112,3 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
-

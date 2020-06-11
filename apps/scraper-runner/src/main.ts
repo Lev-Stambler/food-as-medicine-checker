@@ -2,12 +2,14 @@ import * as scholarsScrape from '@foodmedicine/scholars-scraper';
 import * as articleParser from '@foodmedicine/article-parser';
 import * as healthSiteScraper from '@foodmedicine/health-site-scraper';
 import * as fs from 'fs';
-import {
-  ParsedArticleParagraph,
-  ParsedArticleParagraphStandalone,
-} from '@foodmedicine/interfaces';
+import { ParsedArticleParagraphStandalone } from '@foodmedicine/interfaces';
 
-function getTopPercentage(arr: any[], percent = 5) {
+/**
+ * Get the top percentage of an array
+ * @param arr an array sorted in descending order
+ * @param percent percentage of items to be returned
+ */
+function getTopPercentage(arr: any[], percent = 5): any[] {
   return arr.slice(0, Math.floor((arr.length * percent) / 100));
 }
 
@@ -61,8 +63,6 @@ async function findCorrelatedParagraphs(
     `tmp/${impacted}-${recommendation}.json`,
     JSON.stringify(getTopPercentage(allParagraphsStandalone))
   );
-  console.log(
-    `Done finding correlation of ${recommendation} for ${impacted}`
-  );
+  console.log(`Done finding correlation of ${recommendation} for ${impacted}`);
 }
 main();

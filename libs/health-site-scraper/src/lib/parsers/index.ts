@@ -1,1 +1,1 @@
-export * from './elaine-moran-wellness-parser'
+export * from './elaine-moran-wellness-parser';
