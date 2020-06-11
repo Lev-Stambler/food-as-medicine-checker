@@ -31,7 +31,6 @@ function findWordFreqFuzzy(word: string, paragraph: string): number {
     0
   );
   return overallFreqScore;
-  // return paragraph.split(word).length - 1;
 }
 
 /**
@@ -40,12 +39,13 @@ function findWordFreqFuzzy(word: string, paragraph: string): number {
  * Paragraph length
  * @param impactFreq
  * @param recommendationFreq
+ * @param paragraphWordCount
  */
-async function computeScore(
+function computeScore(
   impactFreq: number,
   recommendationFreq: number,
   paragraphWordCount: number
-): Promise<number> {
+): number {
   const impactScore = impactFreq * correlationWeights.impactWordFreq;
   const recommendationScore =
     recommendationFreq * correlationWeights.recommendationWordFreq;
@@ -71,7 +71,7 @@ async function getParagraphCorrelationScore(
   const impactedStem = stemString(impacted);
   const paragraphStemmed = stemString(paragraph);
   const recommendationStem = stemString(recommendation);
-  const correlationScore = await computeScore(
+  const correlationScore = computeScore(
     findWordFreqFuzzy(impactedStem, paragraphStemmed),
     findWordFreqFuzzy(recommendationStem, paragraphStemmed),
     paragraph.split(' ').length

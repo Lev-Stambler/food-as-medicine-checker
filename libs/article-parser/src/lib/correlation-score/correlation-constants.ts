@@ -3,7 +3,10 @@ export const correlationWeights = {
   impactSynonymWordFreq: 0.7,
   recommendationWordFreq: 1,
   recommendationSynonymWordFreq: 0.7,
+  // impact cross recommendation is high to place an emphasis on
+  // having both impact and recommendation within one paragraph
   impactCrossRecommendation: 8,
+  // currently at 0 so that length is disregarded
   paragraphLength: 0,
 };
 

@@ -23,6 +23,9 @@ export interface HealthRemedies {
   recommendations: string[];
 }
 
+/**
+ * Contains the outline information of an article
+ */
 export interface ParsedArticleHead {
   id: string;
   title: string;

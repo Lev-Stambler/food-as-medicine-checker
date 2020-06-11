@@ -10,7 +10,9 @@ import * as xmlJs from 'xml2js';
  */
 export const ScholarsParser: Parser<ParsedArticleHead> = {
   parserF: async (xml, opts?: ScholarsParserOpts) => {
-    if (!opts) throw 'Options must be passed into this scraper';
+    if (!opts) {
+      throw 'Options must be passed into this scraper';
+    }
     const parser = new xmlJs.Parser(/* options */);
     const jsonRes = await parser.parseStringPromise(xml);
     const allResults = jsonRes.responseWrapper.resultList[0].result;
