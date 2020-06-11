@@ -14,10 +14,10 @@ function getTopPercentage(arr: any[], percent = 5) {
 async function main() {
   const healthRemedies = await healthSiteScraper.runAllScrapers();
   const findCorrelatedParagraphsProms = healthRemedies.map(
-    async (healthRemedey) => {
-      const recommendationResults = healthRemedey.recommendations.map(
+    async (healthRemedy) => {
+      const recommendationResults = healthRemedy.recommendations.map(
         (recommendation) =>
-          findCorrelatedParagraphs(healthRemedey.impacted, recommendation)
+          findCorrelatedParagraphs(healthRemedy.impacted, recommendation)
       );
       return await Promise.all(recommendationResults);
     }
