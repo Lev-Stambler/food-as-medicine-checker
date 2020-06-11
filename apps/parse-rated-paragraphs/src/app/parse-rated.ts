@@ -43,7 +43,6 @@ function createNewPath(originalFileName: string): string {
 
 export async function storeRatedParagraphs() {
   const paragraphFilenames = getAllJsonPaths();
-  console.log(paragraphFilenames);
   const storeRatedParagraphsPerArticleProms = paragraphFilenames.map(
     async (paragraphFilename) => {
       const paragraphs = await getParagraphsFromFile(paragraphFilename);
