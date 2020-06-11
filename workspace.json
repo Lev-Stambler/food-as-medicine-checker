@@ -1,0 +1,241 @@
+{
+  "version": 1,
+  "projects": {
+    "health-site-scraper": {
+      "root": "apps/health-site-scraper",
+      "sourceRoot": "apps/health-site-scraper/src",
+      "projectType": "application",
+      "prefix": "health-site-scraper",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/health-site-scraper",
+            "main": "apps/health-site-scraper/src/main.ts",
+            "tsConfig": "apps/health-site-scraper/tsconfig.app.json",
+            "assets": ["apps/health-site-scraper/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/health-site-scraper/src/environments/environment.ts",
+                  "with": "apps/health-site-scraper/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "health-site-scraper:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/health-site-scraper/.eslintrc",
+            "tsConfig": [
+              "apps/health-site-scraper/tsconfig.app.json",
+              "apps/health-site-scraper/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/health-site-scraper/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/health-site-scraper/jest.config.js",
+            "tsConfig": "apps/health-site-scraper/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "google-scholars-scraper": {
+      "root": "apps/google-scholars-scraper",
+      "sourceRoot": "apps/google-scholars-scraper/src",
+      "projectType": "application",
+      "prefix": "google-scholars-scraper",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/google-scholars-scraper",
+            "main": "apps/google-scholars-scraper/src/main.ts",
+            "tsConfig": "apps/google-scholars-scraper/tsconfig.app.json",
+            "assets": ["apps/google-scholars-scraper/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/google-scholars-scraper/src/environments/environment.ts",
+                  "with": "apps/google-scholars-scraper/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "google-scholars-scraper:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/google-scholars-scraper/.eslintrc",
+            "tsConfig": [
+              "apps/google-scholars-scraper/tsconfig.app.json",
+              "apps/google-scholars-scraper/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/google-scholars-scraper/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/google-scholars-scraper/jest.config.js",
+            "tsConfig": "apps/google-scholars-scraper/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/interfaces/.eslintrc",
+            "tsConfig": [
+              "libs/interfaces/tsconfig.lib.json",
+              "libs/interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/interfaces/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/interfaces/jest.config.js",
+            "tsConfig": "libs/interfaces/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "scraper": {
+      "root": "libs/scraper",
+      "sourceRoot": "libs/scraper/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/scraper/.eslintrc",
+            "tsConfig": [
+              "libs/scraper/tsconfig.lib.json",
+              "libs/scraper/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/scraper/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/scraper/jest.config.js",
+            "tsConfig": "libs/scraper/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/node"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/react": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/web": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nx-plugin": {
+      "plugin": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "health-site-scraper"
+}
