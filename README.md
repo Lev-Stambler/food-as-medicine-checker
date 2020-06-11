@@ -16,7 +16,6 @@ This project will use web scraping techniques on sites which make recommendation
 The audience for this project are end consumers looking to better understand the recommendations put forth by food as medicine.
 
 Priorities:
-
 - P0
   - Scraped recommendations for specific symptoms or desired effects
   - A collection of articles related to the scraped recommendations
