@@ -24,20 +24,13 @@ export class Scraper<IRet> {
     return await ret.text();
   }
 
-  /**
-   * Finds associated health remedies found on one page on a particular website
-   * @param url
-   * @param opts 
-   */
   async scrapeSiteSinglePage(url: string, opts: any): Promise<IRet[]> {
     const source = await this.getSiteSource(url);
     return await this.parser.parserF(source, opts);
   }
 
   /**
-   * Finds associated health remedies found on a particular website
-   * @param urls
-   * @param parser the necessary parser for a specific URL
+   * Run the scraper for the inputed websites
    */
   public async run(): Promise<IRet[]> {
     // create an array of promises to concurrently perform web scraping
