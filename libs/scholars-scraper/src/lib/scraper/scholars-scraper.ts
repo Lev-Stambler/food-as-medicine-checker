@@ -1,4 +1,4 @@
-import { HealthRemedies, ParsedArticleHead } from '@foodmedicine/interfaces';
+import { ParsedArticleHead } from '@foodmedicine/interfaces';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Scraper } from '@foodmedicine/scraper';
 import * as parsers from '../parsers';
@@ -21,8 +21,8 @@ function createScholarsUrl(
 }
 
 /**
- * Find all the PDF urls which could have related articles to the remedey
- * @param remedey one particular impacted and a set of recommendations
+ * Find all the PDF urls which could have related articles to the remedy
+ * @param remedy one particular impacted and a set of recommendations
  * @returns an array of PDF urls
  */
 export async function runScholarsScraper(
@@ -30,7 +30,7 @@ export async function runScholarsScraper(
   recommendation: string
 ): Promise<ParsedArticleHead[]> {
   const queryUrls = [createScholarsUrl(impacted, recommendation)];
-  const remedeyScraper = new Scraper<ParsedArticleHead>(
+  const remedyScraper = new Scraper<ParsedArticleHead>(
     parsers.ScholarsParser,
     ...queryUrls.map((url) => {
       return {
@@ -44,6 +44,6 @@ export async function runScholarsScraper(
   );
 
   // the following urls may have repeats
-  const articleHeads = await remedeyScraper.run();
+  const articleHeads = await remedyScraper.run();
   return articleHeads;
 }
