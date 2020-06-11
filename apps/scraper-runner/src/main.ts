@@ -2,7 +2,11 @@ import * as scholarsScrape from '@foodmedicine/scholars-scraper';
 import * as articleParser from '@foodmedicine/article-parser';
 import * as healthSiteScraper from '@foodmedicine/health-site-scraper';
 import * as fs from 'fs';
-import { ParsedArticleParagraphStandalone } from '@foodmedicine/interfaces';
+import {
+  ParsedArticleParagraphStandalone,
+  ParsedArticle,
+  ParsedArticleParagraph,
+} from '@foodmedicine/interfaces';
 
 /**
  * Get the top percentage of an array
@@ -38,23 +42,30 @@ async function findCorrelatedParagraphs(
     impacted,
     recommendation
   );
-  const downloadProms = articleHeads.map(async (articleHead) => {
-    const evaluatedArticle = await articleParser.evaluateArticle(
-      articleHead,
-      articleParser.EbiParser
-    );
-    return evaluatedArticle;
-  });
-  const allEvaluatedArticles = await Promise.all(downloadProms);
-  const standaloneParagraphsGrouped = allEvaluatedArticles.map((article) =>
-    article.paragraphs.map((paragraph) => {
-      return {
-        head: article.head,
-        ...paragraph,
-      };
-    })
+  const downloadProms: Promise<ParsedArticle>[] = articleHeads.map(
+    async (articleHead) => {
+      const evaluatedArticle: ParsedArticle = await articleParser.evaluateArticle(
+        articleHead,
+        articleParser.EbiParser
+      );
+      return evaluatedArticle;
+    }
   );
-  const allParagraphsStandalone: ParsedArticleParagraphStandalone[] = standaloneParagraphsGrouped.flat();
+  const allEvaluatedArticles: ParsedArticle[] = await Promise.all(
+    downloadProms
+  );
+  const allParagraphsStandalone: ParsedArticleParagraphStandalone[] = [];
+  allEvaluatedArticles.forEach((article) => {
+    const standaloneParagraphs: ParsedArticleParagraphStandalone[] = article.paragraphs.map(
+      (paragraph: ParsedArticleParagraph) => {
+        return {
+          head: article.head,
+          ...paragraph,
+        };
+      }
+    );
+    allParagraphsStandalone.push(...standaloneParagraphs);
+  });
   // sort in descending order
   allParagraphsStandalone.sort(
     (a, b) => b.correlationScore - a.correlationScore

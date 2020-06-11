@@ -13,7 +13,7 @@ export const ScholarsParser: Parser<ParsedArticleHead> = {
     if (!opts) {
       throw 'Options must be passed into this scraper';
     }
-    const parser = new xmlJs.Parser(/* options */);
+    const parser = new xmlJs.Parser();
     const jsonRes = await parser.parseStringPromise(xml);
     const allResults = jsonRes.responseWrapper.resultList[0].result;
     const parsedHeads: ParsedArticleHead[] = allResults.map((res) => {

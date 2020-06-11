@@ -29,21 +29,15 @@ export async function runScholarsScraper(
   impacted: string,
   recommendation: string
 ): Promise<ParsedArticleHead[]> {
-  const queryUrls = [createScholarsUrl(impacted, recommendation)];
-  const remedyScraper = new Scraper<ParsedArticleHead>(
-    parsers.ScholarsParser,
-    ...queryUrls.map((url) => {
-      return {
-        url,
-        tag: {
-          recommendation: recommendation,
-          impacted: impacted,
-        },
-      };
-    })
-  );
+  const queryUrl = createScholarsUrl(impacted, recommendation);
+  const remedyScraper = new Scraper<ParsedArticleHead>(parsers.ScholarsParser, {
+    url: queryUrl,
+    tag: {
+      recommendation: recommendation,
+      impacted: impacted,
+    },
+  });
 
-  // the following urls may have repeats
   const articleHeads = await remedyScraper.run();
   return articleHeads;
 }
