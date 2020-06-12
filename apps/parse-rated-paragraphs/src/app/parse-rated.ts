@@ -5,12 +5,14 @@ import {
   ArticleParagraphBacksUpClaim,
   ImpactFileList,
 } from '@foodmedicine/interfaces';
+import { create } from 'domain';
 
 const allParagraphsBasePath = './tmp/correlated-paragraphs/';
 const readFileAsync = util.promisify(fs.readFile);
+const impactListFileName = 'impact-recommendation-list.json';
 
 function getAllJsonPaths(): string[] {
-  const path = allParagraphsBasePath + 'impact-recommendation-list.json';
+  const path = allParagraphsBasePath + impactListFileName;
   const impactList: ImpactFileList = JSON.parse(
     fs.readFileSync(path).toString()
   ) as ImpactFileList;
@@ -41,9 +43,13 @@ function saveParagraphs(
   fs.writeFileSync(path, JSON.stringify(paragraphs));
 }
 
-// TODO the return value will be changed with the implementation of the frontend
 function createNewPath(originalFileName: string): string {
-  return `${__dirname}/../../../tmp/rated-paragraphs/${originalFileName}`;
+  return `${__dirname}/../../../apps/table-frontend/src/app/rated-paragraphs/${originalFileName}`;
+}
+
+function copyAllJsonPaths() {
+  const path = allParagraphsBasePath + impactListFileName;
+  fs.copyFileSync(path, createNewPath(impactListFileName));
 }
 
 export async function storeRatedParagraphs() {
@@ -56,5 +62,6 @@ export async function storeRatedParagraphs() {
     }
   );
   await Promise.all(storeRatedParagraphsPerArticleProms);
+  copyAllJsonPaths();
   console.log('Done with parsing out related paragraphs');
 }
