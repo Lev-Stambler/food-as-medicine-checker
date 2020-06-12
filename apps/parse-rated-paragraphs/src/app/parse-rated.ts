@@ -1,26 +1,23 @@
 import * as fs from 'fs';
+import * as util from 'util';
 import {
   ParsedArticleParagraphStandalone,
   ArticleParagraphBacksUpClaim,
 } from '@foodmedicine/interfaces';
 
 const allParagraphsBasePath = './tmp/correlated-paragraphs/';
+const readFileAsync = util.promisify(fs.readFile);
+
 function getAllJsonPaths(): string[] {
   return fs.readdirSync(allParagraphsBasePath);
 }
 
-function getParagraphsFromFile(
+async function getParagraphsFromFile(
   filename: string
 ): Promise<ParsedArticleParagraphStandalone[]> {
-  return new Promise((res, rej) => {
-    fs.readFile(`${allParagraphsBasePath}/${filename}`, (err, data) => {
-      if (err) {
-        rej(err);
-      }
-      const json = JSON.parse(data.toString());
-      res(json as ParsedArticleParagraphStandalone[]);
-    });
-  });
+  const data = await readFileAsync(`${allParagraphsBasePath}/${filename}`);
+  const json = JSON.parse(data.toString());
+  return json as ParsedArticleParagraphStandalone[];
 }
 
 function paragraphIsRated(
