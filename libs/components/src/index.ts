@@ -1,1 +1,1 @@
-export const x = '';
+export * from './lib/expanded-list'

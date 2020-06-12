@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTable } from 'react-table';
+import { ExpandedList } from '@foodmedicine/components';
 import MaterialTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,7 +12,7 @@ const data = [
     recommendation: 'ginger',
     effective: 'No',
     confidence: '10',
-    fromResearch: ({...props}) => <div>Hello</div>,
+    fromResearch: <ExpandedList dataPoints={[{ title: 'asas', titleUrl: 'asa', items: ['111', '222'] }]} />,
   },
 ];
 const columns = [
