@@ -7,6 +7,8 @@ import {
   ParsedArticle,
   ParsedArticleParagraph,
   ArticleParagraphBacksUpClaim,
+  ImpactFileList,
+  HealthRemedies,
 } from '@foodmedicine/interfaces';
 
 /**
@@ -18,8 +20,27 @@ function getTopPercentage(arr: any[], percent = 5): any[] {
   return arr.slice(0, Math.floor((arr.length * percent) / 100));
 }
 
+function createFilename(impacted: string, recommendation: string): string {
+  return `${impacted}-${recommendation}.json`.replace('/', '_');
+}
+
+function createImpactList(healthRemedies: HealthRemedies[]): ImpactFileList {
+  return healthRemedies.map((healthRemedy) => {
+    return {
+      impacted: healthRemedy.impacted,
+      recommendations: healthRemedy.recommendations.map((recommendation) => {
+        return {
+          fileName: createFilename(healthRemedy.impacted, recommendation),
+          recommendation,
+        };
+      }),
+    };
+  });
+}
+
 async function main() {
   const healthRemedies = await healthSiteScraper.runAllScrapers();
+
   const findCorrelatedParagraphsProms = healthRemedies.map(
     async (healthRemedy) => {
       const recommendationResults = healthRemedy.recommendations.map(
@@ -30,6 +51,14 @@ async function main() {
     }
   );
   await Promise.all(findCorrelatedParagraphsProms);
+
+  // create a streamlined list which points to the other files
+  const impactedList: ImpactFileList = createImpactList(healthRemedies);
+  fs.writeFileSync(
+    `tmp/correlated-paragraphs/impact-recommendation-list.json`,
+    JSON.stringify(impactedList)
+  );
+  console.log("Done scraping!")
 }
 
 async function findCorrelatedParagraphs(
@@ -73,7 +102,7 @@ async function findCorrelatedParagraphs(
     (a, b) => b.correlationScore - a.correlationScore
   );
   fs.writeFileSync(
-    `tmp/correlated-paragraphs/${impacted}-${recommendation}.json`,
+    `tmp/correlated-paragraphs/${createFilename(impacted, recommendation)}`,
     JSON.stringify(getTopPercentage(allParagraphsStandalone))
   );
   console.log(`Done finding correlation of ${recommendation} for ${impacted}`);

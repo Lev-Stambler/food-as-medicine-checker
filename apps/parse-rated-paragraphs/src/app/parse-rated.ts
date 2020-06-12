@@ -2,11 +2,19 @@ import * as fs from 'fs';
 import {
   ParsedArticleParagraphStandalone,
   ArticleParagraphBacksUpClaim,
+  ImpactFileList,
 } from '@foodmedicine/interfaces';
 
 const allParagraphsBasePath = './tmp/correlated-paragraphs/';
 function getAllJsonPaths(): string[] {
-  return fs.readdirSync(allParagraphsBasePath);
+  const path = allParagraphsBasePath + 'impact-recommendation-list.json';
+  const impactList: ImpactFileList = JSON.parse(
+    fs.readFileSync(path).toString()
+  ) as ImpactFileList;
+  // get all the filenames from each impact item
+  return impactList
+    .map((impactItem) => impactItem.recommendations.map((rec) => rec.fileName))
+    .flat();
 }
 
 function getParagraphsFromFile(
