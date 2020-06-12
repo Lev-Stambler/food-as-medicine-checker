@@ -29,6 +29,16 @@ export interface HealthRemedies {
   recommendations: string[];
 }
 
+export interface ImpactFileListItem {
+  impacted: string;
+  recommendations: {
+    fileName: string;
+    recommendation: string;
+  }[];
+}
+
+export type ImpactFileList = ImpactFileListItem[]
+
 /**
  * Contains the outline information of an article
  */

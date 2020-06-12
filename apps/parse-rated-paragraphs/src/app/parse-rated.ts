@@ -1,26 +1,33 @@
 import * as fs from 'fs';
+import * as util from 'util';
 import {
   ParsedArticleParagraphStandalone,
   ArticleParagraphBacksUpClaim,
+  ImpactFileList,
 } from '@foodmedicine/interfaces';
+import { create } from 'domain';
 
 const allParagraphsBasePath = './tmp/correlated-paragraphs/';
+const readFileAsync = util.promisify(fs.readFile);
+const impactListFileName = 'impact-recommendation-list.json';
+
 function getAllJsonPaths(): string[] {
-  return fs.readdirSync(allParagraphsBasePath);
+  const path = allParagraphsBasePath + impactListFileName;
+  const impactList: ImpactFileList = JSON.parse(
+    fs.readFileSync(path).toString()
+  ) as ImpactFileList;
+  // get all the filenames from each impact item
+  return impactList
+    .map((impactItem) => impactItem.recommendations.map((rec) => rec.fileName))
+    .flat();
 }
 
-function getParagraphsFromFile(
+async function getParagraphsFromFile(
   filename: string
 ): Promise<ParsedArticleParagraphStandalone[]> {
-  return new Promise((res, rej) => {
-    fs.readFile(`${allParagraphsBasePath}/${filename}`, (err, data) => {
-      if (err) {
-        rej(err);
-      }
-      const json = JSON.parse(data.toString());
-      res(json as ParsedArticleParagraphStandalone[]);
-    });
-  });
+  const data = await readFileAsync(`${allParagraphsBasePath}/${filename}`);
+  const json = JSON.parse(data.toString());
+  return json as ParsedArticleParagraphStandalone[];
 }
 
 function paragraphIsRated(
@@ -36,14 +43,17 @@ function saveParagraphs(
   fs.writeFileSync(path, JSON.stringify(paragraphs));
 }
 
-// TODO the return value will be changed with the implementation of the frontend
 function createNewPath(originalFileName: string): string {
-  return `${__dirname}/../../../tmp/rated-paragraphs/${originalFileName}`;
+  return `${__dirname}/../../../apps/table-frontend/src/app/rated-paragraphs/${originalFileName}`;
+}
+
+function copyAllJsonPaths() {
+  const path = allParagraphsBasePath + impactListFileName;
+  fs.copyFileSync(path, createNewPath(impactListFileName));
 }
 
 export async function storeRatedParagraphs() {
   const paragraphFilenames = getAllJsonPaths();
-  console.log(paragraphFilenames);
   const storeRatedParagraphsPerArticleProms = paragraphFilenames.map(
     async (paragraphFilename) => {
       const paragraphs = await getParagraphsFromFile(paragraphFilename);
@@ -52,5 +62,6 @@ export async function storeRatedParagraphs() {
     }
   );
   await Promise.all(storeRatedParagraphsPerArticleProms);
+  copyAllJsonPaths();
   console.log('Done with parsing out related paragraphs');
 }
