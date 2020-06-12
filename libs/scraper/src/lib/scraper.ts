@@ -26,7 +26,7 @@ export class Scraper<IRet> {
 
   async scrapeSiteSinglePage(url: string, opts: any): Promise<IRet[]> {
     const source = await this.getSiteSource(url);
-    return await this.parser.parserF(source, opts);
+    return await this.parser.parserF(source, opts) as IRet[];
   }
 
   /**

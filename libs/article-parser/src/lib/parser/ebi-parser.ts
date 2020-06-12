@@ -37,7 +37,7 @@ export const EbiParser: Parser<ParsedArticle> = {
       head: opts.parsedArticleHead,
       paragraphs,
     };
-    return [article];
+    return article;
   },
 };
 
