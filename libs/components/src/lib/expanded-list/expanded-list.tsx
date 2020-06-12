@@ -10,7 +10,7 @@ interface ExpandedListProps {
   }[];
 }
 
-const ListItems = (props: { items: any[], index: number }) => {
+const ListItems = (props: { items: any[]; index: number }) => {
   function getFirstNWords(text: string, n = 20): string {
     return text.split(' ').splice(0, n).join(' ');
   }
@@ -42,7 +42,7 @@ export const ExpandedList = (props: ExpandedListProps) => {
               <a className="title" href={dataPoint.titleUrl}>
                 {dataPoint.title}
               </a>
-              <ListItems items={dataPoint.items} />
+              <ListItems items={dataPoint.items} index={i} />
             </div>
           );
         })}

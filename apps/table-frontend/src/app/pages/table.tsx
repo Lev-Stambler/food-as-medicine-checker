@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTable } from 'react-table';
 import { ExpandedList } from '@foodmedicine/components';
 import MaterialTable from '@material-ui/core/Table';
@@ -6,13 +6,24 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+// const test = require('../rated-paragraphs/a.json')
+const fileList = require('../rated-paragraphs/alist.json');
+
+async function getData() {
+  console.log(test);
+}
+
 const data = [
   {
     impacted: 'brain',
     recommendation: 'ginger',
     effective: 'No',
     confidence: '10',
-    fromResearch: <ExpandedList dataPoints={[{ title: 'asas', titleUrl: 'asa', items: ['111', '222'] }]} />,
+    fromResearch: (
+      <ExpandedList
+        dataPoints={[{ title: 'asas', titleUrl: 'asa', items: ['111', '222'] }]}
+      />
+    ),
   },
 ];
 const columns = [
@@ -52,6 +63,9 @@ const Table = (props) => {
     columns,
     data,
   });
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className="app">
       <MaterialTable {...getTableProps()}>
