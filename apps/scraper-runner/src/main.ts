@@ -13,7 +13,7 @@ import {
  * @param arr - an array sorted in descending order
  * @param percent - percentage of items to be returned
  */
-function getTopPercentage(arr: any[], percent = 5): any[] {
+function getTopPercentage<T>(arr: T[], percent = 5): T[] {
   return arr.slice(0, Math.floor((arr.length * percent) / 100));
 }
 
