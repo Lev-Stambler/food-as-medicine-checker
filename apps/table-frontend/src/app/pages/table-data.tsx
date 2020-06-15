@@ -1,7 +1,8 @@
 import React from 'react';
 import { ImpactFileList } from '@foodmedicine/interfaces';
 import { FindOutMore } from '@foodmedicine/components';
-import {Effective, EffectiveProps} from '../components/effective'
+import { Effective, EffectiveProps } from '../components/effective';
+import { FromResearch, FromResearchProps } from '../components/from-research';
 
 export function generateData(fileList: ImpactFileList) {
   const fullRemedyList = fileList.map((impactedList) =>
@@ -17,20 +18,13 @@ export function generateData(fileList: ImpactFileList) {
             }}
           />
         ),
-        // confidence: (
-        //   <FindOutMore<any>
-        //     ExpandedComponent={3}
-        //     ExpandedComponentProps={{
-        //       fileName: impactRecommendation.fileName,
-        //     }}
-        //   />
-        // ),
         fromResearch: (
-          <FindOutMore<any>
-            ExpandedComponent={3}
+          <FindOutMore<FromResearchProps>
+            ExpandedComponent={FromResearch}
             ExpandedComponentProps={{
               fileName: impactRecommendation.fileName,
             }}
+            width="400px"
           />
         ),
       };

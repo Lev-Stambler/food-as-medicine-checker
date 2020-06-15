@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useTable } from 'react-table';
-import { ExpandedList } from '@foodmedicine/components';
 import MaterialTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -27,16 +26,8 @@ const columns = [
     Header: 'Is it effective?',
     accessor: 'effective',
   },
-  // {
-  //   Header: 'How sure are we?',
-  //   accessor: 'confidence',
-  // },
   {
     Header: () => <strong>Check out the research</strong>,
-    expander: true,
-    Expander: ({ isExpanded, ...rest }) => (
-      <div>{isExpanded ? <span>Hello</span> : <span>Goodbye</span>}</div>
-    ),
     accessor: 'fromResearch',
   },
 ];

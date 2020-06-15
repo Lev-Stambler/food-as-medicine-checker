@@ -4,7 +4,6 @@ import {
   ParsedArticleParagraphStandalone,
   ArticleParagraphBacksUpClaim,
 } from '@foodmedicine/interfaces';
-import { parse } from 'querystring';
 export interface EffectiveProps {
   fileName: string;
 }
@@ -49,10 +48,8 @@ function checkIsEffective(
 
 export function Effective(props: EffectiveProps) {
   let effectiveness = UNSURE;
-  // useEffect(() => {
   const parsedParagraphs = getFile(props.fileName);
   effectiveness = checkIsEffective(parsedParagraphs);
-  // });
   return (
     <div>
       <p>{effectiveness.effective}</p>
