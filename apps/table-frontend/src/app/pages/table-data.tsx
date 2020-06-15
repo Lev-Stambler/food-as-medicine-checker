@@ -17,14 +17,14 @@ export function generateData(fileList: ImpactFileList) {
             }}
           />
         ),
-        confidence: (
-          <FindOutMore<any>
-            ExpandedComponent={3}
-            ExpandedComponentProps={{
-              fileName: impactRecommendation.fileName,
-            }}
-          />
-        ),
+        // confidence: (
+        //   <FindOutMore<any>
+        //     ExpandedComponent={3}
+        //     ExpandedComponentProps={{
+        //       fileName: impactRecommendation.fileName,
+        //     }}
+        //   />
+        // ),
         fromResearch: (
           <FindOutMore<any>
             ExpandedComponent={3}

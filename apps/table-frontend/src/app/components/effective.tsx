@@ -9,9 +9,19 @@ export interface EffectiveProps {
   fileName: string;
 }
 
+interface Effectivity {
+  effective: string;
+  confidence: number;
+}
+
+const UNSURE: Effectivity = {
+  effective: 'unsure \\_(-_-)_/',
+  confidence: 1,
+};
+
 function checkIsEffective(
   parsedParagraphs: ParsedArticleParagraphStandalone[]
-): ArticleParagraphBacksUpClaim {
+): Effectivity {
   const totalRatedEffective = parsedParagraphs.reduce(
     (totalEffective, parsedP) =>
       (totalEffective +=
@@ -25,17 +35,28 @@ function checkIsEffective(
     0
   );
   if (totalRatedEffective > parsedParagraphs.length * 0.5)
-    return ArticleParagraphBacksUpClaim.yes;
+    return {
+      effective: 'yes!',
+      confidence: totalRatedEffective / parsedParagraphs.length,
+    };
   else if (totalRatedIneffective > parsedParagraphs.length * 0.5)
-    return ArticleParagraphBacksUpClaim.no;
-  return ArticleParagraphBacksUpClaim.notApplicable;
+    return {
+      effective: 'no :(',
+      confidence: totalRatedIneffective / parsedParagraphs.length,
+    };
+  return UNSURE;
 }
 
 export function Effective(props: EffectiveProps) {
-  let effective = ArticleParagraphBacksUpClaim.notApplicable;
+  let effectiveness = UNSURE;
   // useEffect(() => {
-    const parsedParagraphs = getFile(props.fileName);
-    effective = checkIsEffective(parsedParagraphs);
+  const parsedParagraphs = getFile(props.fileName);
+  effectiveness = checkIsEffective(parsedParagraphs);
   // });
-  return <div>{effective}</div>;
+  return (
+    <div>
+      <p>{effectiveness.effective}</p>
+      <p>With {effectiveness.confidence * 100}% confidence</p>
+    </div>
+  );
 }

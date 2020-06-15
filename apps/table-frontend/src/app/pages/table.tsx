@@ -27,10 +27,10 @@ const columns = [
     Header: 'Is it effective?',
     accessor: 'effective',
   },
-  {
-    Header: 'How sure are we?',
-    accessor: 'confidence',
-  },
+  // {
+  //   Header: 'How sure are we?',
+  //   accessor: 'confidence',
+  // },
   {
     Header: () => <strong>Check out the research</strong>,
     expander: true,
