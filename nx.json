@@ -14,7 +14,12 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
@@ -22,13 +27,19 @@
     "health-site-scraper": {
       "tags": []
     },
-    "google-scholars-scraper": {
+    "scholars-scraper": {
+      "tags": []
+    },
+    "scraper-runner": {
       "tags": []
     },
     "interfaces": {
       "tags": []
     },
     "scraper": {
+      "tags": []
+    },
+    "article-parser": {
       "tags": []
     }
   }

@@ -1,4 +1,43 @@
-# Foodmedicine
+# Food As Medicine
+
+[The Design Doc](https://docs.google.com/document/d/1JxUk9ei88Z6hSeEQPahUhCcOT53X2KngqEfCtplOAbg/edit?usp=sharing)
+
+## Objective
+
+This project seeks to provide backup or lack thereof for commonly recommended “food as medicine” remedies through published literature and scholarly papers.
+
+## Background
+
+The food as medicine methodology is an idea where eating healthy foods and choosing specific foods can help remedy health issues. Many studies have been conducted to verify this approach. Studies such as [Food as Medicine: Potential Therapeutic Tendencies of Plant Derived Polyphenolic Compounds](https://pdfs.semanticscholar.org/fae8/cbb215a33657de9a8e50b4a590dd2577825b.pdf), [Balancing Herbal Medicine and Functional Food for Prevention and Treatment of Cardiometabolic Diseases through Modulating Gut Microbiota](https://www.frontiersin.org/articles/10.3389/fmicb.2017.02146/full), and many others have come out over the past 20 years. There also currently exist many sites, such as Elaine Moran Wellness, which make recommendations of certain foods for certain conditions. Some of these sites which give recommendations often do not cite scholarly sources. But, the information on these sites may still be useful.
+
+## Overview
+
+By using [EuropePMC's rest API](https://europepmc.org/RestfulWebService), this project aims to bridge the gap between scholarly research and sites which make easily accessible and understandable recommendations.
+This project will use web scraping techniques on sites which make recommendations and then attempt to find a set of scholarly sources which back up the claims made. This relationship will then be stored in a database. Thus a user could then cross check recommended foods or use this newly assembled data to find food remedies.
+
+The audience for this project are end consumers looking to better understand the recommendations put forth by food as medicine.
+
+Priorities:
+- P0
+  - Scraped recommendations for specific symptoms or desired effects
+  - A collection of articles related to the scraped recommendations
+  - A table to display the recommendations and corresponding articles
+- P1
+  - Paragraphs selected which specifically back up or go against the food as medicine claims
+- P2
+  - Giving each claim a correlation score. The higher the score, the more the claim is supported by research
+- P3
+  - Using scientific names and synonyms for recommendations, symptoms, and desired effects to find more correlated articles
+  - Use a scraper which finds all recommendations on Elaine Moran’s site
+- P4
+  - Mobile friendly view
+
+This project will be built using Typescript. Typescript was chosen because this project involves web scraping, a frontend, and JSON objects. Typescript’s integration with JSON objects and strong typing will allow for easier scraping and integration with APIs. Typescript’s native support for promises will allow for making multiple API and web scraping calls concurrently.
+Moreover, I have the most experience in Typescript and, due to the project’s short time frame, rapid development is prioritized.
+
+[Nx](https://nx.dev/) will be used to manage the repository. Nx is a tool for managing mono repos and multi package repos. [Jest](https://jestjs.io/) will be used to run the unit tests.
+
+## NX
 
 This project was generated using [Nx](https://nx.dev).
 
@@ -74,4 +113,3 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
-

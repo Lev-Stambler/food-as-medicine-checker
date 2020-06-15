@@ -1,8 +1,66 @@
+type getCorrelationScoreFunction = (
+  paragraph: string,
+  impacted: string,
+  recommendation: string
+) => ParsedArticleParagraph;
+
+export interface BaseParserOptions {
+  tag?: string;
+}
+
+interface ArticleParserOptions extends BaseParserOptions {
+  impacted: string;
+  recommendation: string;
+  getCorrelationScore: getCorrelationScoreFunction;
+}
+
+export interface EbiParserOptions extends ArticleParserOptions {
+  parsedArticleHead: ParsedArticleHead;
+}
+
 export interface HealthRemedies {
-  symptom: string;
-  solutions: string[];
+  impacted: string;
+  recommendations: string[];
+}
+
+/**
+ * Contains the outline information of an article
+ */
+export interface ParsedArticleHead {
+  id: string;
+  title: string;
+  xmlFullTextDownloadLink: string;
+  impacted: string;
+  recommendation: string;
+}
+
+export interface ParsedArticle {
+  head: ParsedArticleHead;
+  paragraphs: ParsedArticleParagraph[];
+}
+
+export interface ParsedArticleParagraph {
+  body: string;
+  correlationScore: number;
+}
+
+export interface ParsedArticleParagraphStandalone
+  extends ParsedArticleParagraph {
+  head: ParsedArticleHead;
 }
 
 export interface Parser<IRet> {
-  parserF: (inputSource: string) => Promise<IRet[]>;
+  parserF: (inputSource: string, opts?: any) => Promise<IRet[] | IRet>;
+}
+
+export interface ScholarsParserOpts {
+  tag: {
+    recommendation: string;
+    impacted: string;
+  };
+}
+
+export interface UrlWithTag {
+  url: string;
+  tag?: any;
 }
