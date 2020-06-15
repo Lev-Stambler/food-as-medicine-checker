@@ -2,7 +2,7 @@ type getCorrelationScoreFunction = (
   paragraph: string,
   impacted: string,
   recommendation: string
-) => Promise<ParsedArticleParagraph>;
+) => ParsedArticleParagraph;
 
 export interface BaseParserOptions {
   tag?: string;

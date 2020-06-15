@@ -58,11 +58,11 @@ function stemString(input: string) {
   return natural.PorterStemmer.tokenizeAndStem(input).join(' ');
 }
 
-async function getParagraphCorrelationScore(
+function getParagraphCorrelationScore(
   paragraph: string,
   impacted: string,
   recommendation: string
-): Promise<ParsedArticleParagraph> {
+): ParsedArticleParagraph {
   const impactedStem = stemString(impacted);
   const paragraphStemmed = stemString(paragraph);
   const recommendationStem = stemString(recommendation);

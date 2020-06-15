@@ -18,16 +18,14 @@ export const EbiParser: Parser<ParsedArticle> = {
     const paragraphTexts: string[] = $('p')
       .map((i, el) => $(el).text())
       .get();
-    const paragraphsProms: Promise<
-      ParsedArticleParagraph
-    >[] = paragraphTexts.map((paragraphText) =>
-      opts.getCorrelationScore(
-        paragraphText,
-        opts.impacted,
-        opts.recommendation
-      )
+    const paragraphs: ParsedArticleParagraph[] = paragraphTexts.map(
+      (paragraphText) =>
+        opts.getCorrelationScore(
+          paragraphText,
+          opts.impacted,
+          opts.recommendation
+        )
     );
-    const paragraphs = await Promise.all(paragraphsProms);
     const article: ParsedArticle = {
       head: opts.parsedArticleHead,
       paragraphs,
