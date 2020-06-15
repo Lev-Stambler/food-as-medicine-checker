@@ -6,26 +6,14 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { generateData } from './table-data';
+import { ImpactFileList } from '@foodmedicine/interfaces';
 // const test = require('../rated-paragraphs/a.json')
-const fileList = require('../rated-paragraphs/alist.json');
+const FILE_LIST: ImpactFileList = require('../rated-paragraphs/impact-recommendation-list.json');
 
-async function getData() {
-  console.log(test);
-}
+const data = generateData(FILE_LIST);
+console.log(data)
 
-const data = [
-  {
-    impacted: 'brain',
-    recommendation: 'ginger',
-    effective: 'No',
-    confidence: '10',
-    fromResearch: (
-      <ExpandedList
-        dataPoints={[{ title: 'asas', titleUrl: 'asa', items: ['111', '222'] }]}
-      />
-    ),
-  },
-];
 const columns = [
   {
     Header: 'Impacted',
@@ -63,9 +51,6 @@ const Table = (props) => {
     columns,
     data,
   });
-  useEffect(() => {
-    getData();
-  }, []);
   return (
     <div className="app">
       <MaterialTable {...getTableProps()}>
