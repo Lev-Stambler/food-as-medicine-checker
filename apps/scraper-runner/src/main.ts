@@ -35,7 +35,7 @@ async function findCorrelatedParagraphs(
   impacted: string,
   recommendation: string
 ) {
-  console.log(
+  console.warn(
     `Starting to find correlation of ${recommendation} for ${impacted}`
   );
   const articleHeads = await scholarsScrape.runScholarsScraper(
@@ -74,6 +74,6 @@ async function findCorrelatedParagraphs(
     `tmp/${impacted}-${recommendation}.json`,
     JSON.stringify(getTopPercentage(allParagraphsStandalone))
   );
-  console.log(`Done finding correlation of ${recommendation} for ${impacted}`);
+  console.warn(`Done finding correlation of ${recommendation} for ${impacted}`);
 }
 main();
