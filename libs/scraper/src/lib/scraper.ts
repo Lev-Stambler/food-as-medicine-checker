@@ -5,7 +5,7 @@ import { parse } from 'querystring';
 /**
  * A generalized scraper abstraction class
  * This class can scrape different sites of pdfs
- * @param IRet is the return interface for a scraped site or article
+ * @param IRet - is the return interface for a scraped site or article
  */
 export class Scraper<IRet> {
   private urlsWithTags: UrlWithTag[];
@@ -17,7 +17,6 @@ export class Scraper<IRet> {
 
   /**
    * Retrieves the source code of a url
-   * @param url
    */
   async getSiteSource(url: string): Promise<string> {
     const ret = await fetch(url);

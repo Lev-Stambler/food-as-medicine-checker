@@ -17,8 +17,6 @@ async function downloadArticle(url: string): Promise<string> {
 
 /**
  * Find word frequencies through fuzzy search
- * @param word
- * @param paragraph
  */
 function findWordFreqFuzzy(word: string, paragraph: string): number {
   const tokenizedParagraph = tokenizer.tokenize(paragraph);
@@ -37,9 +35,6 @@ function findWordFreqFuzzy(word: string, paragraph: string): number {
  * Compute the correlation score based off of the inputs
  * Current features include impact frequencies, recommendation frequencies, impact x recommendation
  * Paragraph length
- * @param impactFreq
- * @param recommendationFreq
- * @param paragraphWordCount
  */
 function computeScore(
   impactFreq: number,
