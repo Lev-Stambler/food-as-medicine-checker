@@ -1,5 +1,7 @@
 # Food As Medicine
 
+[The Design Doc](https://docs.google.com/document/d/1JxUk9ei88Z6hSeEQPahUhCcOT53X2KngqEfCtplOAbg/edit?usp=sharing)
+
 ## Objective
 
 This project seeks to provide backup or lack thereof for commonly recommended “food as medicine” remedies through published literature and scholarly papers.
