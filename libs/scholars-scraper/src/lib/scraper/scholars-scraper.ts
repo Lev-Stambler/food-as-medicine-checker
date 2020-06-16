@@ -10,7 +10,7 @@ import * as parsers from '../parsers';
 function createScholarsUrl(
   impacted: string,
   solution: string,
-  pageSize = 25
+  pageSize
 ): string {
   return encodeURI(
     // TOOD change synonym back to true once synonym is implemented in the correlation algorithm
@@ -25,9 +25,10 @@ function createScholarsUrl(
  */
 export async function runScholarsScraper(
   impacted: string,
-  recommendation: string
+  recommendation: string,
+  pageSize = 25,
 ): Promise<ParsedArticleHead[]> {
-  const queryUrl = createScholarsUrl(impacted, recommendation);
+  const queryUrl = createScholarsUrl(impacted, recommendation, pageSize);
   const remedyScraper = new Scraper<ParsedArticleHead>(parsers.ScholarsParser, {
     url: queryUrl,
     tag: {

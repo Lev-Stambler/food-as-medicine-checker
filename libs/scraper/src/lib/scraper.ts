@@ -24,6 +24,7 @@ export class Scraper<IRet> {
   }
 
   async scrapeSiteSinglePage(url: string, opts: any): Promise<IRet[]> {
+    console.info("Scraping for", url)
     const source = await this.getSiteSource(url);
     return await this.parser.parserF(source, opts) as IRet[];
   }
@@ -33,8 +34,8 @@ export class Scraper<IRet> {
    */
   public async run(): Promise<IRet[]> {
     // create an array of promises to concurrently perform web scraping
-    const pageScrapingProms = this.urlsWithTags.map((urlWithTag) =>
-      this.scrapeSiteSinglePage(urlWithTag.url, {
+    const pageScrapingProms = this.urlsWithTags.map(async (urlWithTag) =>
+      await this.scrapeSiteSinglePage(urlWithTag.url, {
         tag: urlWithTag.tag,
       })
     );

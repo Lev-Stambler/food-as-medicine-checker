@@ -82,6 +82,9 @@ export async function evaluateArticle(
   parser: Parser<ParsedArticle>
 ): Promise<ParsedArticle> {
   const inputXML = await downloadArticle(articleHead.xmlFullTextDownloadLink);
+  console.info(
+    `Downloaded XML for ${articleHead.impacted} for ${articleHead.recommendation} with url ${articleHead.xmlFullTextDownloadLink}`
+  );
   // Parser functions return an array, but in this case, only the first result is relevant
   return (await parser.parserF(inputXML, {
     parsedArticleHead: articleHead,
