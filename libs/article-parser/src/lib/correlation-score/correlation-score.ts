@@ -79,7 +79,7 @@ function stemString(input: string) {
   return natural.PorterStemmer.tokenizeAndStem(input).join(' ');
 }
 
-function getParagraphCorrelationScore(
+function getWholeParagraphCorrelationScore(
   paragraph: string,
   impacted: string,
   recommendation: string,
@@ -111,6 +111,71 @@ function getParagraphCorrelationScore(
   };
 }
 
+/**
+ * Get the correlation score for the segment of a paragraph with the most matches
+ * Will shorten the paragraph as much as possible while trying to mantain the same correlation score
+ * + or - {@code maintainWithinPercent}
+ */
+function getShortestParagraphCorrelationScore(
+  paragraph: string,
+  impacted: string,
+  recommendation: string,
+  impactedSynonyms: string[],
+  recommendationSynonyms: string[],
+  maintainWithinPercent = 5
+): ParsedArticleParagraph {
+  function calculatePercentageDifference(x: number, y: number): number {
+    return Math.abs((x - y) / x) * 100;
+  }
+  const sentences = paragraph.split('.');
+  // remove the last element if it is empty
+  if (!sentences[sentences.length - 1]) {
+    sentences.pop();
+  }
+  const initScore = getWholeParagraphCorrelationScore(
+    paragraph,
+    impacted,
+    recommendation,
+    impactedSynonyms,
+    recommendationSynonyms
+  ).correlationScore;
+  let currentScore = initScore;
+  let leftInd = 0;
+  let rightIndNonInclusive = sentences.length;
+  while (
+    calculatePercentageDifference(initScore, currentScore) <=
+      maintainWithinPercent / 2 &&
+    leftInd != rightIndNonInclusive
+  ) {
+    currentScore = getWholeParagraphCorrelationScore(
+      sentences.slice(leftInd, rightIndNonInclusive).join('.'),
+      impacted,
+      recommendation,
+      impactedSynonyms,
+      recommendationSynonyms
+    ).correlationScore;
+    leftInd++;
+  }
+  while (
+    calculatePercentageDifference(initScore, currentScore) <=
+      maintainWithinPercent &&
+    leftInd != rightIndNonInclusive
+  ) {
+    currentScore = getWholeParagraphCorrelationScore(
+      sentences.slice(leftInd, rightIndNonInclusive).join('.'),
+      impacted,
+      recommendation,
+      impactedSynonyms,
+      recommendationSynonyms
+    ).correlationScore;
+    rightIndNonInclusive--;
+  }
+  return {
+    correlationScore: currentScore,
+    body: sentences.slice(leftInd, rightIndNonInclusive).join('.'),
+  };
+}
+
 export async function evaluateArticle(
   articleHead: ParsedArticleHead,
   parser: Parser<ParsedArticle>
@@ -124,6 +189,6 @@ export async function evaluateArticle(
     parsedArticleHead: articleHead,
     impacted: articleHead.impacted,
     recommendation: articleHead.recommendation,
-    getCorrelationScore: getParagraphCorrelationScore,
+    getCorrelationScore: getShortestParagraphCorrelationScore,
   } as EbiParserOptions)) as ParsedArticle;
 }
