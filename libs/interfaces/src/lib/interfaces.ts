@@ -7,7 +7,9 @@ export enum ArticleParagraphBacksUpClaim {
 type getCorrelationScoreFunction = (
   paragraph: string,
   impacted: string,
-  recommendation: string
+  recommendation: string,
+  impactedSynonyms: string[],
+  recommendationSynonyms: string[]
 ) => ParsedArticleParagraph;
 
 export interface BaseParserOptions {
@@ -15,8 +17,6 @@ export interface BaseParserOptions {
 }
 
 interface ArticleParserOptions extends BaseParserOptions {
-  impacted: string;
-  recommendation: string;
   getCorrelationScore: getCorrelationScoreFunction;
 }
 
@@ -38,6 +38,8 @@ export interface ParsedArticleHead {
   xmlFullTextDownloadLink: string;
   impacted: string;
   recommendation: string;
+  impactedSynonyms: string[];
+  recommendationSynonyms: string[];
 }
 
 export interface ParsedArticle {

@@ -18,7 +18,7 @@ import {
 function getTopScoringParagraphs<T>(
   arr: T[],
   scoreAccessor: string,
-  scoreCutOff = 5
+  scoreCutOff = 10
 ): T[] {
   return arr.filter((item) => item[scoreAccessor] >= scoreCutOff);
 }

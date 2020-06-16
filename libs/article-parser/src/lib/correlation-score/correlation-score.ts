@@ -3,6 +3,7 @@ import {
   Parser,
   ParsedArticle,
   ParsedArticleParagraph,
+  EbiParserOptions,
 } from '@foodmedicine/interfaces';
 import * as fetch from 'node-fetch';
 import { correlationWeights, cutOffs } from './correlation-constants';
@@ -31,6 +32,12 @@ function findWordFreqFuzzy(word: string, paragraph: string): number {
   return overallFreqScore;
 }
 
+function findWordsFreqFuzzy(words: string[], paragraph: string): number {
+  return words
+    .map((word) => findWordFreqFuzzy(word, paragraph))
+    .reduce((total, score) => total + score, 0);
+}
+
 /**
  * Compute the correlation score based off of the inputs
  * Current features include impact frequencies, recommendation frequencies, impact x recommendation
@@ -39,11 +46,18 @@ function findWordFreqFuzzy(word: string, paragraph: string): number {
 function computeScore(
   impactFreq: number,
   recommendationFreq: number,
+  impactSynonymFreq: number,
+  recommendationSynonymFreq: number,
   paragraphWordCount: number
 ): number {
   const impactScore = impactFreq * correlationWeights.impactWordFreq;
   const recommendationScore =
     recommendationFreq * correlationWeights.recommendationWordFreq;
+  const impactSynonymScore =
+    impactSynonymFreq * correlationWeights.impactSynonymWordFreq;
+  const recommendationSynonymScore =
+    recommendationSynonymFreq *
+    correlationWeights.recommendationSynonymWordFreq;
   const crossScore =
     impactFreq *
     recommendationFreq *
@@ -51,7 +65,14 @@ function computeScore(
   const paragraphLengthScore =
     paragraphWordCount * correlationWeights.paragraphLength;
   // ensures that both impact and recommendation are seen in the same paragraph
-  return impactScore + recommendationScore + crossScore + paragraphLengthScore;
+  return (
+    impactScore +
+    recommendationScore +
+    crossScore +
+    paragraphLengthScore +
+    impactSynonymScore +
+    recommendationSynonymScore
+  );
 }
 
 function stemString(input: string) {
@@ -61,14 +82,27 @@ function stemString(input: string) {
 function getParagraphCorrelationScore(
   paragraph: string,
   impacted: string,
-  recommendation: string
+  recommendation: string,
+  impactedSynonyms: string[],
+  recommendationSynonyms: string[]
 ): ParsedArticleParagraph {
   const impactedStem = stemString(impacted);
   const paragraphStemmed = stemString(paragraph);
   const recommendationStem = stemString(recommendation);
+  const impactSynonymFreq = findWordsFreqFuzzy(
+    impactedSynonyms,
+    paragraphStemmed
+  );
+  const recommendationSynonymFreq = findWordsFreqFuzzy(
+    recommendationSynonyms,
+    paragraphStemmed
+  );
+
   const correlationScore = computeScore(
     findWordFreqFuzzy(impactedStem, paragraphStemmed),
     findWordFreqFuzzy(recommendationStem, paragraphStemmed),
+    impactSynonymFreq,
+    recommendationSynonymFreq,
     paragraph.split(' ').length
   );
   return {
@@ -91,5 +125,5 @@ export async function evaluateArticle(
     impacted: articleHead.impacted,
     recommendation: articleHead.recommendation,
     getCorrelationScore: getParagraphCorrelationScore,
-  })) as ParsedArticle;
+  } as EbiParserOptions)) as ParsedArticle;
 }
