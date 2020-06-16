@@ -16,10 +16,7 @@
               "libs/health-site-scraper/tsconfig.lib.json",
               "libs/health-site-scraper/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/health-site-scraper/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/health-site-scraper/**"]
           }
         },
         "test": {
@@ -47,10 +44,7 @@
               "libs/scholars-scraper/tsconfig.lib.json",
               "libs/scholars-scraper/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/scholars-scraper/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/scholars-scraper/**"]
           }
         },
         "test": {
@@ -78,10 +72,7 @@
               "libs/interfaces/tsconfig.lib.json",
               "libs/interfaces/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/interfaces/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/interfaces/**"]
           }
         },
         "test": {
@@ -107,9 +98,7 @@
             "outputPath": "dist/apps/scraper",
             "main": "apps/scraper/src/main.ts",
             "tsConfig": "apps/scraper/tsconfig.app.json",
-            "assets": [
-              "apps/scraper/src/assets"
-            ]
+            "assets": ["apps/scraper/src/assets"]
           },
           "configurations": {
             "production": {
@@ -140,10 +129,7 @@
               "apps/scraper/tsconfig.app.json",
               "apps/scraper/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/scraper/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/scraper/**"]
           }
         },
         "test": {
@@ -171,10 +157,7 @@
               "libs/article-parser/tsconfig.lib.json",
               "libs/article-parser/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/article-parser/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/article-parser/**"]
           }
         },
         "test": {
@@ -200,9 +183,7 @@
             "outputPath": "dist/apps/scraper-runner",
             "main": "apps/scraper-runner/src/main.ts",
             "tsConfig": "apps/scraper-runner/tsconfig.app.json",
-            "assets": [
-              "apps/scraper-runner/src/assets"
-            ]
+            "assets": ["apps/scraper-runner/src/assets"]
           },
           "configurations": {
             "production": {
@@ -233,10 +214,7 @@
               "apps/scraper-runner/tsconfig.app.json",
               "apps/scraper-runner/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/scraper-runner/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/scraper-runner/**"]
           }
         },
         "test": {
@@ -262,9 +240,7 @@
             "outputPath": "dist/apps/parse-rated-paragraphs",
             "main": "apps/parse-rated-paragraphs/src/main.ts",
             "tsConfig": "apps/parse-rated-paragraphs/tsconfig.app.json",
-            "assets": [
-              "apps/parse-rated-paragraphs/src/assets"
-            ]
+            "assets": ["apps/parse-rated-paragraphs/src/assets"]
           },
           "configurations": {
             "production": {
@@ -295,10 +271,7 @@
               "apps/parse-rated-paragraphs/tsconfig.app.json",
               "apps/parse-rated-paragraphs/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/parse-rated-paragraphs/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/parse-rated-paragraphs/**"]
           }
         },
         "test": {
@@ -307,6 +280,115 @@
             "jestConfig": "apps/parse-rated-paragraphs/jest.config.js",
             "tsConfig": "apps/parse-rated-paragraphs/tsconfig.spec.json",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "table-frontend": {
+      "root": "apps/table-frontend",
+      "sourceRoot": "apps/table-frontend/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/table-frontend",
+            "index": "apps/table-frontend/src/index.html",
+            "main": "apps/table-frontend/src/main.tsx",
+            "polyfills": "apps/table-frontend/src/polyfills.ts",
+            "tsConfig": "apps/table-frontend/tsconfig.app.json",
+            "assets": [
+              "apps/table-frontend/src/favicon.ico",
+              "apps/table-frontend/src/assets"
+            ],
+            "styles": ["apps/table-frontend/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/table-frontend/src/environments/environment.ts",
+                  "with": "apps/table-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "table-frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "table-frontend:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/table-frontend/.eslintrc",
+            "tsConfig": [
+              "apps/table-frontend/tsconfig.app.json",
+              "apps/table-frontend/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/table-frontend/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/table-frontend/jest.config.js",
+            "tsConfig": "apps/table-frontend/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "table-frontend-e2e": {
+      "root": "apps/table-frontend-e2e",
+      "sourceRoot": "apps/table-frontend-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/table-frontend-e2e/cypress.json",
+            "tsConfig": "apps/table-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "table-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "table-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/table-frontend-e2e/.eslintrc",
+            "tsConfig": ["apps/table-frontend-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/table-frontend-e2e/**"]
           }
         }
       }
@@ -328,13 +410,19 @@
     },
     "@nrwl/react": {
       "application": {
-        "linter": "eslint"
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
       },
       "library": {
+        "style": "css",
         "linter": "eslint"
       },
       "storybook-configuration": {
         "linter": "eslint"
+      },
+      "component": {
+        "style": "css"
       }
     },
     "@nrwl/next": {
