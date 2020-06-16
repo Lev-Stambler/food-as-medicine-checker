@@ -1,15 +1,11 @@
 import * as fs from 'fs';
-import * as util from 'util';
 import {
   ParsedArticleParagraphStandalone,
   ArticleParagraphBacksUpClaim,
   ImpactFileList,
 } from '@foodmedicine/interfaces';
-import { create } from 'domain';
 
 const allParagraphsBasePath = './tmp/correlated-paragraphs/';
-const readFileAsync = util.promisify(fs.readFile);
-const impactListFileName = 'impact-recommendation-list.json';
 
 function getAllJsonPaths(): string[] {
   const path = allParagraphsBasePath + impactListFileName;
@@ -23,11 +19,13 @@ function getAllJsonPaths(): string[] {
 }
 
 async function getParagraphsFromFile(
-  filename: string
-): Promise<ParsedArticleParagraphStandalone[]> {
-  const data = await readFileAsync(`${allParagraphsBasePath}/${filename}`);
-  const json = JSON.parse(data.toString());
-  return json as ParsedArticleParagraphStandalone[];
+  filename: string,
+  cb: (parsed: ParsedArticleParagraphStandalone[]) => void
+) {
+  fs.readFile(`${allParagraphsBasePath}/${filename}`, (err, data) => {
+    const json = JSON.parse(data.toString());
+    cb(json as ParsedArticleParagraphStandalone[]);
+  });
 }
 
 function paragraphIsRated(
@@ -56,9 +54,10 @@ export async function storeRatedParagraphs() {
   const paragraphFilenames = getAllJsonPaths();
   const storeRatedParagraphsPerArticleProms = paragraphFilenames.map(
     async (paragraphFilename) => {
-      const paragraphs = await getParagraphsFromFile(paragraphFilename);
-      const ratedParagraphs = paragraphs.filter(paragraphIsRated);
-      saveParagraphs(createNewPath(paragraphFilename), ratedParagraphs);
+      getParagraphsFromFile(paragraphFilename, (paragraphs) => {
+        const ratedParagraphs = paragraphs.filter(paragraphIsRated);
+        saveParagraphs(createNewPath(paragraphFilename), ratedParagraphs);
+      });
     }
   );
   await Promise.all(storeRatedParagraphsPerArticleProms);

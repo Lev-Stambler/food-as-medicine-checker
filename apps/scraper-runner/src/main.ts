@@ -13,10 +13,10 @@ import {
 
 /**
  * Get the top percentage of an array
- * @param arr an array sorted in descending order
- * @param percent percentage of items to be returned
+ * @param arr - an array sorted in descending order
+ * @param percent - percentage of items to be returned
  */
-function getTopPercentage(arr: any[], percent = 5): any[] {
+function getTopPercentage<T>(arr: T[], percent = 5): T[] {
   return arr.slice(0, Math.floor((arr.length * percent) / 100));
 }
 
@@ -41,7 +41,7 @@ function createImpactList(healthRemedies: HealthRemedies[]): ImpactFileList {
 async function main() {
   const healthRemedies = await healthSiteScraper.runAllScrapers();
 
-  const findCorrelatedParagraphsProms = healthRemedies.map(
+  healthRemedies.forEach(
     async (healthRemedy) => {
       const recommendationResults = healthRemedy.recommendations.map(
         (recommendation) =>
@@ -50,7 +50,6 @@ async function main() {
       return await Promise.all(recommendationResults);
     }
   );
-  await Promise.all(findCorrelatedParagraphsProms);
 
   // create a streamlined list which points to the other files
   const impactedList: ImpactFileList = createImpactList(healthRemedies);
@@ -65,7 +64,7 @@ async function findCorrelatedParagraphs(
   impacted: string,
   recommendation: string
 ) {
-  console.log(
+  console.warn(
     `Starting to find correlation of ${recommendation} for ${impacted}`
   );
   const articleHeads = await scholarsScrape.runScholarsScraper(
@@ -106,6 +105,6 @@ async function findCorrelatedParagraphs(
     `tmp/correlated-paragraphs/${createFilename(impacted, recommendation)}`,
     JSON.stringify(getTopPercentage(allParagraphsStandalone))
   );
-  console.log(`Done finding correlation of ${recommendation} for ${impacted}`);
+  console.warn(`Done finding correlation of ${recommendation} for ${impacted}`);
 }
 main();

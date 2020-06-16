@@ -11,33 +11,26 @@ import * as cheerio from 'cheerio';
  */
 export const EbiParser: Parser<ParsedArticle> = {
   parserF: async (xml: string, opts?: EbiParserOptions) => {
-    if (
-      !opts ||
-      !opts.parsedArticleHead ||
-      !opts.impacted ||
-      !opts.recommendation
-    ) {
+    if (!opts?.parsedArticleHead || !opts?.impacted || !opts?.recommendation) {
       throw 'Please add in the parsed head, impacted, and recommendation through the options';
     }
     const $ = cheerio.load(xml);
     const paragraphTexts: string[] = $('p')
       .map((i, el) => $(el).text())
       .get();
-    const paragraphsProms: Promise<
-      ParsedArticleParagraph
-    >[] = paragraphTexts.map((paragraphText) =>
-      opts.getCorrelationScore(
-        paragraphText,
-        opts.impacted,
-        opts.recommendation
-      )
+    const paragraphs: ParsedArticleParagraph[] = paragraphTexts.map(
+      (paragraphText) =>
+        opts.getCorrelationScore(
+          paragraphText,
+          opts.impacted,
+          opts.recommendation
+        )
     );
-    const paragraphs = await Promise.all(paragraphsProms);
     const article: ParsedArticle = {
       head: opts.parsedArticleHead,
       paragraphs,
     };
-    return [article];
+    return article;
   },
 };
 

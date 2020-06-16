@@ -33,14 +33,14 @@
     "fs": "0.0.1-security",
     "natural": "^2.1.5",
     "node-fetch": "^2.6.0",
+    "xml2js": "^0.4.23",
     "react": "16.12.0",
     "react-collapsible": "^2.8.0",
     "react-dom": "16.12.0",
     "react-motion": "^0.5.2",
     "react-router-dom": "5.1.2",
     "react-table": "^7.2.0",
-    "util": "^0.12.3",
-    "xml2js": "^0.4.23"
+    "util": "^0.12.3"
   },
   "devDependencies": {
     "@nrwl/cypress": "9.3.0",

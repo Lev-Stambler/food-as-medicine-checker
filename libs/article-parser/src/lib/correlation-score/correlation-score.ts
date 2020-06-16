@@ -17,8 +17,6 @@ async function downloadArticle(url: string): Promise<string> {
 
 /**
  * Find word frequencies through fuzzy search
- * @param word
- * @param paragraph
  */
 function findWordFreqFuzzy(word: string, paragraph: string): number {
   const tokenizedParagraph = tokenizer.tokenize(paragraph);
@@ -37,9 +35,6 @@ function findWordFreqFuzzy(word: string, paragraph: string): number {
  * Compute the correlation score based off of the inputs
  * Current features include impact frequencies, recommendation frequencies, impact x recommendation
  * Paragraph length
- * @param impactFreq
- * @param recommendationFreq
- * @param paragraphWordCount
  */
 function computeScore(
   impactFreq: number,
@@ -63,11 +58,11 @@ function stemString(input: string) {
   return natural.PorterStemmer.tokenizeAndStem(input).join(' ');
 }
 
-async function getParagraphCorrelationScore(
+function getParagraphCorrelationScore(
   paragraph: string,
   impacted: string,
   recommendation: string
-): Promise<ParsedArticleParagraph> {
+): ParsedArticleParagraph {
   const impactedStem = stemString(impacted);
   const paragraphStemmed = stemString(paragraph);
   const recommendationStem = stemString(recommendation);
@@ -88,12 +83,10 @@ export async function evaluateArticle(
 ): Promise<ParsedArticle> {
   const inputXML = await downloadArticle(articleHead.xmlFullTextDownloadLink);
   // Parser functions return an array, but in this case, only the first result is relevant
-  return (
-    await parser.parserF(inputXML, {
-      parsedArticleHead: articleHead,
-      impacted: articleHead.impacted,
-      recommendation: articleHead.recommendation,
-      getCorrelationScore: getParagraphCorrelationScore,
-    })
-  )[0];
+  return (await parser.parserF(inputXML, {
+    parsedArticleHead: articleHead,
+    impacted: articleHead.impacted,
+    recommendation: articleHead.recommendation,
+    getCorrelationScore: getParagraphCorrelationScore,
+  })) as ParsedArticle;
 }
