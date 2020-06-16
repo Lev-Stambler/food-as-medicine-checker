@@ -31,6 +31,7 @@
     "fs": "0.0.1-security",
     "natural": "^2.1.5",
     "node-fetch": "^2.6.0",
+    "util": "^0.12.3",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {

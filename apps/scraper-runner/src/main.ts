@@ -6,6 +6,7 @@ import {
   ParsedArticleParagraphStandalone,
   ParsedArticle,
   ParsedArticleParagraph,
+  ArticleParagraphBacksUpClaim,
 } from '@foodmedicine/interfaces';
 
 /**
@@ -60,6 +61,8 @@ async function findCorrelatedParagraphs(
       (paragraph: ParsedArticleParagraph) => {
         return {
           head: article.head,
+          // set default backsUpClaim to notApplicable. This later gets changed manually in the JSON file
+          backsUpClaim: ArticleParagraphBacksUpClaim.notApplicable,
           ...paragraph,
         };
       }
@@ -71,7 +74,7 @@ async function findCorrelatedParagraphs(
     (a, b) => b.correlationScore - a.correlationScore
   );
   fs.writeFileSync(
-    `tmp/${impacted}-${recommendation}.json`,
+    `tmp/correlated-paragraphs/${impacted}-${recommendation}.json`,
     JSON.stringify(getTopPercentage(allParagraphsStandalone))
   );
   console.warn(`Done finding correlation of ${recommendation} for ${impacted}`);

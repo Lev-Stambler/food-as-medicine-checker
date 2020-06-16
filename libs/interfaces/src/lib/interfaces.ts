@@ -1,3 +1,9 @@
+export enum ArticleParagraphBacksUpClaim {
+  yes = 'y',
+  no = 'n',
+  notApplicable = 'na',
+}
+
 type getCorrelationScoreFunction = (
   paragraph: string,
   impacted: string,
@@ -47,6 +53,7 @@ export interface ParsedArticleParagraph {
 export interface ParsedArticleParagraphStandalone
   extends ParsedArticleParagraph {
   head: ParsedArticleHead;
+  backsUpClaim: ArticleParagraphBacksUpClaim;
 }
 
 export interface Parser<IRet> {

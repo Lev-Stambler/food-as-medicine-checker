@@ -41,6 +41,9 @@
     },
     "article-parser": {
       "tags": []
+    },
+    "parse-rated-paragraphs": {
+      "tags": []
     }
   }
 }
