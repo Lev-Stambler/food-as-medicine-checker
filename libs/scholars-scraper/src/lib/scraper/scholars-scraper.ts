@@ -5,9 +5,7 @@ import * as parsers from '../parsers';
 
 /**
  * Construct the google scholars url which will be scraped
- * @param impacted
- * @param solution
- * @param pageSize the number of articles to get
+ * @param pageSize - the number of articles to get
  */
 function createScholarsUrl(
   impacted: string,
@@ -22,7 +20,7 @@ function createScholarsUrl(
 
 /**
  * Find all the PDF urls which could have related articles to the remedy
- * @param remedy one particular impacted and a set of recommendations
+ * @param remedy - one particular impacted and a set of recommendations
  * @returns an array of PDF urls
  */
 export async function runScholarsScraper(
