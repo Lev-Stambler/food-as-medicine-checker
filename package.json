@@ -37,6 +37,7 @@
     "react-router-dom": "5.1.2",
     "synonyms": "^1.0.1",
     "util": "^0.12.3",
+    "wordnet": "^0.1.2",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {

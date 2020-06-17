@@ -122,7 +122,7 @@ function getShortestParagraphCorrelationScore(
   recommendation: string,
   impactedSynonyms: string[],
   recommendationSynonyms: string[],
-  maintainWithinPercent = 5
+  maintainWithinPercent = cutOffs.maintainScoreWithinPercent
 ): ParsedArticleParagraph {
   function calculatePercentageDifference(x: number, y: number): number {
     return Math.abs((x - y) / x) * 100;

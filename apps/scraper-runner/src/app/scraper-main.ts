@@ -10,7 +10,7 @@ import {
 } from '@foodmedicine/interfaces';
 
 /**
- * Get the top percentage of an array
+ * Get the paragraphs which are either above the {@code scoreCutOff} and only have {@code maxParagraphs}
  * @param arr - an array sorted in descending order
  * @param scoreAccessor - the key to access the score
  * @param scoreCutOff - minimum score required
@@ -18,14 +18,20 @@ import {
 function getTopScoringParagraphs<T>(
   arr: T[],
   scoreAccessor: string,
-  scoreCutOff = 10
+  scoreCutOff = 10,
+  maxParagraphs = 8
 ): T[] {
-  return arr.filter((item) => item[scoreAccessor] >= scoreCutOff);
+  const byCutOff = arr.filter((item) => item[scoreAccessor] >= scoreCutOff);
+  if (byCutOff.length > maxParagraphs) {
+    return byCutOff.slice(0, maxParagraphs);
+  }
+  return byCutOff;
 }
 
 export async function main(opts?: {
   limit?: number;
   numberOfArticles?: number;
+  scoreCutOff?: number;
 }) {
   const healthRemedies = await healthSiteScraper.runAllScrapers();
   const remediesProm = await healthRemedies.map(async (healthRemedy) => {
@@ -38,7 +44,8 @@ export async function main(opts?: {
       findCorrelatedParagraphs(
         healthRemedy.impacted,
         recommendation,
-        opts?.numberOfArticles || 25
+        opts?.numberOfArticles || 25,
+        opts.scoreCutOff
       )
     );
     return await Promise.all(recommendationResults);
@@ -50,7 +57,8 @@ export async function main(opts?: {
 async function findCorrelatedParagraphs(
   impacted: string,
   recommendation: string,
-  numberOfArticles: number
+  numberOfArticles: number,
+  scoreCutOff?: number
 ) {
   console.info(
     `Starting to find correlation of ${recommendation} for ${impacted}`
@@ -93,7 +101,7 @@ async function findCorrelatedParagraphs(
   fs.writeFileSync(
     `tmp/correlated-paragraphs/${impacted}-${recommendation}.json`,
     JSON.stringify(
-      getTopScoringParagraphs(allParagraphsStandalone, 'correlationScore')
+      getTopScoringParagraphs(allParagraphsStandalone, 'correlationScore', scoreCutOff)
     )
   );
   console.info(`Done finding correlation of ${recommendation} for ${impacted}`);
