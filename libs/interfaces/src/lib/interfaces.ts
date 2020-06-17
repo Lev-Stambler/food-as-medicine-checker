@@ -62,11 +62,12 @@ export interface Parser<IRet> {
   parserF: (inputSource: string, opts?: any) => Promise<IRet[] | IRet>;
 }
 
-export interface ScholarsParserOpts {
+export interface ScholarsParserOpts extends UrlWithTag {
   tag: {
     recommendation: string;
     impacted: string;
   };
+  impactedSynonyms: string[];
 }
 
 export interface UrlWithTag {
