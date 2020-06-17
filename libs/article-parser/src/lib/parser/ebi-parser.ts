@@ -35,5 +35,3 @@ export const EbiParser: Parser<ParsedArticle> = {
     return article;
   },
 };
-
-export const x = 'a';
