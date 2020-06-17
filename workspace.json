@@ -16,7 +16,10 @@
               "libs/health-site-scraper/tsconfig.lib.json",
               "libs/health-site-scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/health-site-scraper/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/health-site-scraper/**"
+            ]
           }
         },
         "test": {
@@ -44,7 +47,10 @@
               "libs/scholars-scraper/tsconfig.lib.json",
               "libs/scholars-scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/scholars-scraper/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/scholars-scraper/**"
+            ]
           }
         },
         "test": {
@@ -72,7 +78,10 @@
               "libs/interfaces/tsconfig.lib.json",
               "libs/interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/interfaces/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/interfaces/**"
+            ]
           }
         },
         "test": {
@@ -98,7 +107,9 @@
             "outputPath": "dist/apps/scraper",
             "main": "apps/scraper/src/main.ts",
             "tsConfig": "apps/scraper/tsconfig.app.json",
-            "assets": ["apps/scraper/src/assets"]
+            "assets": [
+              "apps/scraper/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -129,7 +140,10 @@
               "apps/scraper/tsconfig.app.json",
               "apps/scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/scraper/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/scraper/**"
+            ]
           }
         },
         "test": {
@@ -157,7 +171,10 @@
               "libs/article-parser/tsconfig.lib.json",
               "libs/article-parser/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/article-parser/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/article-parser/**"
+            ]
           }
         },
         "test": {
@@ -183,7 +200,9 @@
             "outputPath": "dist/apps/scraper-runner",
             "main": "apps/scraper-runner/src/main.ts",
             "tsConfig": "apps/scraper-runner/tsconfig.app.json",
-            "assets": ["apps/scraper-runner/src/assets"]
+            "assets": [
+              "apps/scraper-runner/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -214,7 +233,10 @@
               "apps/scraper-runner/tsconfig.app.json",
               "apps/scraper-runner/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/scraper-runner/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/scraper-runner/**"
+            ]
           }
         },
         "test": {
@@ -240,7 +262,9 @@
             "outputPath": "dist/apps/parse-rated-paragraphs",
             "main": "apps/parse-rated-paragraphs/src/main.ts",
             "tsConfig": "apps/parse-rated-paragraphs/tsconfig.app.json",
-            "assets": ["apps/parse-rated-paragraphs/src/assets"]
+            "assets": [
+              "apps/parse-rated-paragraphs/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -271,7 +295,10 @@
               "apps/parse-rated-paragraphs/tsconfig.app.json",
               "apps/parse-rated-paragraphs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/parse-rated-paragraphs/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/parse-rated-paragraphs/**"
+            ]
           }
         },
         "test": {
@@ -302,7 +329,9 @@
               "apps/table-frontend/src/favicon.ico",
               "apps/table-frontend/src/assets"
             ],
-            "styles": ["apps/table-frontend/src/styles.css"],
+            "styles": [
+              "apps/table-frontend/src/styles.css"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -351,7 +380,10 @@
               "apps/table-frontend/tsconfig.app.json",
               "apps/table-frontend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/table-frontend/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/table-frontend/**"
+            ]
           }
         },
         "test": {
@@ -387,8 +419,13 @@
           "options": {
             "linter": "eslint",
             "config": "apps/table-frontend-e2e/.eslintrc",
-            "tsConfig": ["apps/table-frontend-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/table-frontend-e2e/**"]
+            "tsConfig": [
+              "apps/table-frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/table-frontend-e2e/**"
+            ]
           }
         }
       }
@@ -408,7 +445,10 @@
               "libs/word-explorer/tsconfig.lib.json",
               "libs/word-explorer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/word-explorer/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/word-explorer/**"
+            ]
           }
         },
         "test": {
@@ -416,6 +456,68 @@
           "options": {
             "jestConfig": "libs/word-explorer/jest.config.js",
             "tsConfig": "libs/word-explorer/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": [
+              "apps/api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/api/.eslintrc",
+            "tsConfig": [
+              "apps/api/tsconfig.app.json",
+              "apps/api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "tsConfig": "apps/api/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
