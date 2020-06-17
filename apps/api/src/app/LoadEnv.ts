@@ -14,5 +14,3 @@ const envVariables = require(`../environments/${options.env}.env.json`);
 for (const key in envVariables) {
   process.env[key] = envVariables[key];
 }
-
-export default {};
