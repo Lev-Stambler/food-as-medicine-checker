@@ -12,13 +12,12 @@ import * as cheerio from 'cheerio';
 export const EbiParser: Parser<ParsedArticle> = {
   parserF: async (xml: string, opts?: EbiParserOptions) => {
     if (!opts?.parsedArticleHead) {
-      throw 'Please add in the parsed head, impacted, and recommendation through the options';
+      throw 'Please add in the parsed head';
     }
     const $ = cheerio.load(xml);
     const paragraphTexts: string[] = $('p')
       .map((i, el) => $(el).text())
       .get();
-
     const paragraphs: ParsedArticleParagraph[] = paragraphTexts.map(
       (paragraphText) =>
         opts.getCorrelationScore(
