@@ -25,6 +25,7 @@ async function getParagraphsFromFile(
   filename: string,
   cb: (parsed: ParsedArticleParagraphStandalone[]) => void
 ) {
+  console.log(filename)
   fs.readFile(`${ALL_PARAGRAPHS_BASE_PATH}/${filename}`, (err, data) => {
     const json = JSON.parse(data.toString());
     cb(json as ParsedArticleParagraphStandalone[]);

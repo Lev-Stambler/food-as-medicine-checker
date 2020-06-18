@@ -24,20 +24,19 @@ export interface EbiParserOptions extends ArticleParserOptions {
   parsedArticleHead: ParsedArticleHead;
 }
 
+interface RecommendationInfo {
+  filename?: string;
+  recommendation: string;
+}
+
 export interface HealthRemedies {
   impacted: string;
-  recommendations: string[];
+  recommendations: RecommendationInfo[];
 }
 
-export interface ImpactFileListItem {
-  impacted: string;
-  recommendations: {
-    fileName: string;
-    recommendation: string;
-  }[];
-}
+export type ImpactFileListItem = HealthRemedies;
 
-export type ImpactFileList = ImpactFileListItem[]
+export type ImpactFileList = ImpactFileListItem[];
 
 /**
  * Contains the outline information of an article

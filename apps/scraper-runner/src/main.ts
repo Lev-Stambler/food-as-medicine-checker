@@ -25,17 +25,26 @@ function createFilename(impacted: string, recommendation: string): string {
 }
 
 function createImpactList(healthRemedies: HealthRemedies[]): ImpactFileList {
-  return healthRemedies.map((healthRemedy) => {
-    return {
-      impacted: healthRemedy.impacted,
-      recommendations: healthRemedy.recommendations.map((recommendation) => {
-        return {
-          fileName: createFilename(healthRemedy.impacted, recommendation),
-          recommendation,
-        };
-      }),
-    };
-  });
+  for (let i = 0; i < healthRemedies.length; i++) {
+    for (
+      let recommendationInd = 0;
+      recommendationInd < healthRemedies[i].recommendations.length;
+      recommendationInd++
+    ) {
+      // console.log(healthRemedies[i].recommendations[recommendationInd]);
+      if (healthRemedies[i].recommendations[recommendationInd]) {
+        const recommendation =
+          healthRemedies[i].recommendations[recommendationInd].recommendation;
+        healthRemedies[i].recommendations[
+          recommendationInd
+        ].filename = createFilename(
+          healthRemedies[i].impacted,
+          recommendation
+        ).replace('/', '_');
+      }
+    }
+  }
+  return healthRemedies;
 }
 
 async function main() {
@@ -43,8 +52,11 @@ async function main() {
 
   healthRemedies.forEach(async (healthRemedy) => {
     const recommendationResults = healthRemedy.recommendations.map(
-      (recommendation) =>
-        findCorrelatedParagraphs(healthRemedy.impacted, recommendation)
+      (recommendationInfo) =>
+        findCorrelatedParagraphs(
+          healthRemedy.impacted,
+          recommendationInfo.recommendation
+        )
     );
     return await Promise.all(recommendationResults);
   });
