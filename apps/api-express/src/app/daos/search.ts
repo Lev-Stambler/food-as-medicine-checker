@@ -8,9 +8,17 @@ import * as scholarsScraper from '@foodmedicine/scholars-scraper';
 import * as articleParser from '@foodmedicine/article-parser';
 
 export async function findQueryResults(
-  query: string
+  query: string,
+  opts?: {
+    numberOfArticles?: number;
+    maxNumberOfParagraphs?: number;
+  }
 ): Promise<ParsedArticleParagraphStandalone[]> {
-  const articleHeads = await scholarsScraper.runScholarsScraper(query, '', 5);
+  const articleHeads = await scholarsScraper.runScholarsScraper(
+    query,
+    '',
+    opts?.numberOfArticles || 5
+  );
   const downloadProms: Promise<ParsedArticle>[] = articleHeads.map(
     async (articleHead) => {
       const evaluatedArticle: ParsedArticle = await articleParser.evaluateArticle(
@@ -41,5 +49,8 @@ export async function findQueryResults(
   allParagraphsStandalone.sort(
     (a, b) => b.correlationScore - a.correlationScore
   );
-  return allParagraphsStandalone;
+  return allParagraphsStandalone.slice(
+    0,
+    opts?.maxNumberOfParagraphs || allParagraphsStandalone.length
+  );
 }
