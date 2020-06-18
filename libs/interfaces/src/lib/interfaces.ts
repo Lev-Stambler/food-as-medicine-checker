@@ -66,11 +66,11 @@ export interface ScholarsParserOpts extends UrlWithTag {
   tag: {
     recommendation: string;
     impacted: string;
+    impactedSynonyms: string[];
   };
-  impactedSynonyms: string[];
 }
 
 export interface UrlWithTag {
   url: string;
-  tag?: any;
+  tag: any;
 }

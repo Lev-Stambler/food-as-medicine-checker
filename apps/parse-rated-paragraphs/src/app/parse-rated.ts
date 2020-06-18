@@ -49,5 +49,5 @@ export async function storeRatedParagraphs() {
     }
   );
   await Promise.all(storeRatedParagraphsPerArticleProms);
-  console.log('Done with parsing out related paragraphs');
+  console.info('Done with parsing out related paragraphs');
 }

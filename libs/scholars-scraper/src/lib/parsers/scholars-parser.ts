@@ -25,7 +25,7 @@ export const ScholarsParser: Parser<ParsedArticleHead> = {
         xmlFullTextDownloadLink: `https://www.ebi.ac.uk/europepmc/webservices/rest/${res.id[0]}/fullTextXML`,
         recommendation: opts.tag.recommendation,
         impacted: opts.tag.impacted,
-        impactedSynonyms: opts.impactedSynonyms,
+        impactedSynonyms: opts.tag.impactedSynonyms,
         recommendationSynonyms: recommendationSynonyms,
       };
     });
