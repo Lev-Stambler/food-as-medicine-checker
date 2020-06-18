@@ -62,14 +62,11 @@ function computeScore(
     impactFreq *
     recommendationFreq *
     correlationWeights.impactCrossRecommendation;
-  const paragraphLengthScore =
-    paragraphWordCount * correlationWeights.paragraphLength;
   // ensures that both impact and recommendation are seen in the same paragraph
   return (
     impactScore +
     recommendationScore +
     crossScore +
-    paragraphLengthScore +
     impactSynonymScore +
     recommendationSynonymScore
   );
@@ -142,6 +139,8 @@ function getShortestParagraphCorrelationScore(
   let currentScore = initScore;
   let leftInd = 0;
   let rightIndNonInclusive = sentences.length;
+  // Attempts to remove sentences from the beginning of the paragraph
+  // while having the correlation score stay within half of the {@code maintainWithinPercent}
   while (
     calculatePercentageDifference(initScore, currentScore) <=
       maintainWithinPercent / 2 &&
@@ -156,6 +155,8 @@ function getShortestParagraphCorrelationScore(
     ).correlationScore;
     leftInd++;
   }
+  // Attempts to remove sentences from the end of the paragraph
+  // while having the correlation score stay within {@code maintainWithinPercent}
   while (
     calculatePercentageDifference(initScore, currentScore) <=
       maintainWithinPercent &&
@@ -170,6 +171,13 @@ function getShortestParagraphCorrelationScore(
     ).correlationScore;
     rightIndNonInclusive--;
   }
+  // Increment {@code rightIndNonInclusive} because the new correlation score may be
+  // over the alloted percentage range after the prior loop. Thus, the last sentence removed
+  // is added back
+  rightIndNonInclusive =
+    rightIndNonInclusive < sentences.length
+      ? rightIndNonInclusive + 1
+      : rightIndNonInclusive;
   return {
     correlationScore: currentScore,
     body: sentences.slice(leftInd, rightIndNonInclusive).join('.'),

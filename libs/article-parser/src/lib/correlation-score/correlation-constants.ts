@@ -4,8 +4,6 @@ export const correlationWeights = {
   impactCrossRecommendation: 8,
   impactSynonymWordFreq: 0.5,
   impactWordFreq: 1,
-  // currently at 0 so that length is disregarded
-  paragraphLength: 0,
   recommendationWordFreq: 1,
   recommendationSynonymWordFreq: 0.5,
 };
