@@ -48,6 +48,7 @@
       "implicitDependencies": ["table-frontend"]
     },
     "api-express": {
+    "word-explorer": {
       "tags": []
     }
   }
