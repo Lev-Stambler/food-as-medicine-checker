@@ -5,16 +5,19 @@ import {
   ImpactFileList,
 } from '@foodmedicine/interfaces';
 
-const allParagraphsBasePath = './tmp/correlated-paragraphs/';
+const ALL_PARAGRAPHS_BASE_PATH = './tmp/correlated-paragraphs/';
+const IMPACT_LIST_FILE_NAME = 'impact-recommendation-list.json'
 
 function getAllJsonPaths(): string[] {
-  const path = allParagraphsBasePath + impactListFileName;
+  const path = ALL_PARAGRAPHS_BASE_PATH + IMPACT_LIST_FILE_NAME;
   const impactList: ImpactFileList = JSON.parse(
     fs.readFileSync(path).toString()
   ) as ImpactFileList;
-  // get all the filenames from each impact item
+  // Get all the file names which the impact list references
+  // For each impact item, there is an array of recommendations
+  // For each recommendation, there is a file name
   return impactList
-    .map((impactItem) => impactItem.recommendations.map((rec) => rec.fileName))
+    .map((impactItem) => impactItem.recommendations.map((rec) => rec.filename))
     .flat();
 }
 
@@ -22,7 +25,7 @@ async function getParagraphsFromFile(
   filename: string,
   cb: (parsed: ParsedArticleParagraphStandalone[]) => void
 ) {
-  fs.readFile(`${allParagraphsBasePath}/${filename}`, (err, data) => {
+  fs.readFile(`${ALL_PARAGRAPHS_BASE_PATH}/${filename}`, (err, data) => {
     const json = JSON.parse(data.toString());
     cb(json as ParsedArticleParagraphStandalone[]);
   });
@@ -46,8 +49,8 @@ function createNewPath(originalFileName: string): string {
 }
 
 function copyAllJsonPaths() {
-  const path = allParagraphsBasePath + impactListFileName;
-  fs.copyFileSync(path, createNewPath(impactListFileName));
+  const path = ALL_PARAGRAPHS_BASE_PATH + IMPACT_LIST_FILE_NAME;
+  fs.copyFileSync(path, createNewPath(IMPACT_LIST_FILE_NAME));
 }
 
 export async function storeRatedParagraphs() {

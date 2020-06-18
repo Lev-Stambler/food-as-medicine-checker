@@ -3,12 +3,12 @@ import * as articleParser from '@foodmedicine/article-parser';
 import * as healthSiteScraper from '@foodmedicine/health-site-scraper';
 import * as fs from 'fs';
 import {
-  ParsedArticleParagraphStandalone,
+  ArticleParagraphBacksUpClaim,
+  HealthRemedies,
+  ImpactFileList,
   ParsedArticle,
   ParsedArticleParagraph,
-  ArticleParagraphBacksUpClaim,
-  ImpactFileList,
-  HealthRemedies,
+  ParsedArticleParagraphStandalone,
 } from '@foodmedicine/interfaces';
 
 /**
@@ -41,15 +41,13 @@ function createImpactList(healthRemedies: HealthRemedies[]): ImpactFileList {
 async function main() {
   const healthRemedies = await healthSiteScraper.runAllScrapers();
 
-  healthRemedies.forEach(
-    async (healthRemedy) => {
-      const recommendationResults = healthRemedy.recommendations.map(
-        (recommendation) =>
-          findCorrelatedParagraphs(healthRemedy.impacted, recommendation)
-      );
-      return await Promise.all(recommendationResults);
-    }
-  );
+  healthRemedies.forEach(async (healthRemedy) => {
+    const recommendationResults = healthRemedy.recommendations.map(
+      (recommendation) =>
+        findCorrelatedParagraphs(healthRemedy.impacted, recommendation)
+    );
+    return await Promise.all(recommendationResults);
+  });
 
   // create a streamlined list which points to the other files
   const impactedList: ImpactFileList = createImpactList(healthRemedies);
@@ -57,7 +55,7 @@ async function main() {
     `tmp/correlated-paragraphs/impact-recommendation-list.json`,
     JSON.stringify(impactedList)
   );
-  console.log("Done scraping!")
+  console.log('Done scraping!');
 }
 
 async function findCorrelatedParagraphs(

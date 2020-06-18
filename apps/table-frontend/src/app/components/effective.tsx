@@ -4,17 +4,28 @@ import {
   ParsedArticleParagraphStandalone,
   ArticleParagraphBacksUpClaim,
 } from '@foodmedicine/interfaces';
+
+/**
+ * The props to be passed into the {@code Effective} component
+ * @param fileName - the file which contains the information for an impact, recommendation parring
+ */
 export interface EffectiveProps {
   fileName: string;
 }
 
+enum EffectiveString {
+  yes = 'yes!',
+  no = ': (',
+  unsure = 'unsure \\_(-_-)_/',
+}
+
 interface Effectivity {
-  effective: string;
+  effective: EffectiveString;
   confidence: number;
 }
 
 const UNSURE: Effectivity = {
-  effective: 'unsure \\_(-_-)_/',
+  effective: EffectiveString.unsure,
   confidence: 1,
 };
 
@@ -35,12 +46,12 @@ function checkIsEffective(
   );
   if (totalRatedEffective > parsedParagraphs.length * 0.5)
     return {
-      effective: 'yes!',
+      effective: EffectiveString.yes,
       confidence: totalRatedEffective / parsedParagraphs.length,
     };
   else if (totalRatedIneffective > parsedParagraphs.length * 0.5)
     return {
-      effective: 'no :(',
+      effective: EffectiveString.no,
       confidence: totalRatedIneffective / parsedParagraphs.length,
     };
   return UNSURE;

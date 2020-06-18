@@ -14,7 +14,7 @@ export function generateData(fileList: ImpactFileList) {
           <FindOutMore<EffectiveProps>
             ExpandedComponent={Effective}
             ExpandedComponentProps={{
-              fileName: impactRecommendation.fileName,
+              fileName: impactRecommendation.filename,
             }}
           />
         ),
@@ -22,23 +22,12 @@ export function generateData(fileList: ImpactFileList) {
           <FindOutMore<FromResearchProps>
             ExpandedComponent={FromResearch}
             ExpandedComponentProps={{
-              fileName: impactRecommendation.fileName,
+              fileName: impactRecommendation.filename,
             }}
-            width="400px"
           />
         ),
       };
     })
   );
   return fullRemedyList.flat();
-  // {
-  //   impacted: 'brain',
-  //   recommendation: 'ginger',
-  //   effective: <FindOutMore />,
-  //   confidence: <FindOutMore />,
-  //   fromResearch: <FindOutMore />,
-  //   // <ExpandedList
-  //   //   dataPoints={[{ title: 'asas', titleUrl: 'asa', items: ['111', '222'] }]}
-  //   // />
-  // },
 }

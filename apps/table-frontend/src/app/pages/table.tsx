@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { generateData } from './table-data';
 import { ImpactFileList } from '@foodmedicine/interfaces';
-// const test = require('../rated-paragraphs/a.json')
+
 const FILE_LIST: ImpactFileList = require('../rated-paragraphs/impact-recommendation-list.json');
 
 const data = generateData(FILE_LIST);

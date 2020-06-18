@@ -19,13 +19,14 @@ function LinkedShortParagraph(props: { paragraph: Paragraph }) {
   function shortenText(text: string) {
     return text.length > 400 ? text.substring(0, 400) + '...' : text;
   }
+  const shortenedText = shortenText(props.paragraph.body);
 
   return (
     <p
       className="linked-short-p"
       onClick={() => window.open(props.paragraph.url, '_blank')}
     >
-      {shortenText(props.paragraph.body)}
+      {shortenedText}
     </p>
   );
 }
