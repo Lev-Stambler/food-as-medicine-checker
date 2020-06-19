@@ -24,7 +24,8 @@
         "libs/health-site-scraper/src/index.ts"
       ],
       "@foodmedicine/article-parser": ["libs/article-parser/src/index.ts"],
-      "@foodmedicine/components": ["libs/components/src/index.ts"]
+      "@foodmedicine/components": ["libs/components/src/index.ts"],
+      "@foodmedicine/word-explorer": ["libs/word-explorer/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -11,8 +11,8 @@ import * as cheerio from 'cheerio';
  */
 export const EbiParser: Parser<ParsedArticle> = {
   parserF: async (xml: string, opts?: EbiParserOptions) => {
-    if (!opts?.parsedArticleHead || !opts?.impacted || !opts?.recommendation) {
-      throw 'Please add in the parsed head, impacted, and recommendation through the options';
+    if (!opts?.parsedArticleHead) {
+      throw 'Please add in the parsed head';
     }
     const $ = cheerio.load(xml);
     const paragraphTexts: string[] = $('p')
@@ -22,8 +22,10 @@ export const EbiParser: Parser<ParsedArticle> = {
       (paragraphText) =>
         opts.getCorrelationScore(
           paragraphText,
-          opts.impacted,
-          opts.recommendation
+          opts.parsedArticleHead.impacted,
+          opts.parsedArticleHead.recommendation,
+          opts.parsedArticleHead.impactedSynonyms,
+          opts.parsedArticleHead.recommendationSynonyms
         )
     );
     const article: ParsedArticle = {
@@ -33,5 +35,3 @@ export const EbiParser: Parser<ParsedArticle> = {
     return article;
   },
 };
-
-export const x = 'a';

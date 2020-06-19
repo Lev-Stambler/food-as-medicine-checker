@@ -40,7 +40,11 @@
     "react-motion": "^0.5.2",
     "react-router-dom": "5.1.2",
     "react-table": "^7.2.0",
-    "util": "^0.12.3"
+    "util": "^0.12.3",
+    "synonyms": "^1.0.1",
+    "util": "^0.12.3",
+    "wordnet": "^0.1.2",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@nrwl/cypress": "9.3.0",

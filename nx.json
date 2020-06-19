@@ -49,6 +49,9 @@
     },
     "components": {
       "tags": []
+    },
+    "word-explorer": {
+      "tags": []
     }
   }
 }
