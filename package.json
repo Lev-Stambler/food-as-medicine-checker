@@ -28,15 +28,17 @@
   "private": true,
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "document-register-element": "1.13.1",
     "fs": "0.0.1-security",
     "natural": "^2.1.5",
     "node-fetch": "^2.6.0",
-    "xml2js": "^0.4.23",
-    "document-register-element": "1.13.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-router-dom": "5.1.2",
-    "util": "^0.12.3"
+    "synonyms": "^1.0.1",
+    "util": "^0.12.3",
+    "wordnet": "^0.1.2",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@nrwl/eslint-plugin-nx": "9.3.0",

@@ -46,6 +46,9 @@
     "table-frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["table-frontend"]
+    },
+    "word-explorer": {
+      "tags": []
     }
   }
 }
