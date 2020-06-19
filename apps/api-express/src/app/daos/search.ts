@@ -14,6 +14,7 @@ export async function findQueryResults(
     maxNumberOfParagraphs?: number;
   }
 ): Promise<ParsedArticleParagraphStandalone[]> {
+  // The query is the impact and the recommendation is left blank
   const articleHeads = await scholarsScraper.runScholarsScraper(
     query,
     '',
