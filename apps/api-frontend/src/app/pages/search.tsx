@@ -8,10 +8,11 @@ function SingleResult(props: { paragraph: ParsedArticleParagraphStandalone }) {
   return (
     <div
       className="single-result-container"
+      aria-label="search-result"
       onClick={() => window.open(props.paragraph.head.xmlFullTextDownloadLink)}
     >
-      <h4>{props.paragraph.head.title}</h4>
-      <p>...{props.paragraph.body}...</p>
+      <h4 aria-label="paper's title">{props.paragraph.head.title}</h4>
+      <p aria-label="correlated paragraph">...{props.paragraph.body}...</p>
       <hr />
     </div>
   );

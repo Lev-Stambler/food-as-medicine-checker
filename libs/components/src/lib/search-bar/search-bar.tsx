@@ -19,12 +19,13 @@ export function SearchBar<T>(props: SearchBarProps<T>) {
     <div className="search-bar-container">
       <ReactSearchBox
         placeholder="Your Search"
+        aria-label="search bar"
         value={searchVal}
         data={recommendedResultsData}
         onChange={(val) => setSearchVal(val)}
         callback={(record) => console.log(record)}
       />
-      <button onClick={() => props.onSearch(searchVal)}>Search</button>
+      <button aria-label="search button" onClick={() => props.onSearch(searchVal)}>Search</button>
     </div>
   );
 }
