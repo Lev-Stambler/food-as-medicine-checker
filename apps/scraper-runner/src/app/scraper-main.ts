@@ -3,11 +3,48 @@ import * as articleParser from '@foodmedicine/article-parser';
 import * as healthSiteScraper from '@foodmedicine/health-site-scraper';
 import * as fs from 'fs';
 import {
-  ParsedArticleParagraphStandalone,
+  ArticleParagraphBacksUpClaim,
+  HealthRemedies,
+  ImpactFileList,
   ParsedArticle,
   ParsedArticleParagraph,
-  ArticleParagraphBacksUpClaim,
+  ParsedArticleParagraphStandalone,
 } from '@foodmedicine/interfaces';
+
+/**
+ * Get the top percentage of an array
+ * @param arr - an array sorted in descending order
+ * @param percent - percentage of items to be returned
+ */
+function getTopPercentage<T>(arr: T[], percent = 5): T[] {
+  return arr.slice(0, Math.floor((arr.length * percent) / 100));
+}
+
+function createFilename(impacted: string, recommendation: string): string {
+  return `${impacted}-${recommendation}.json`.replace(' ', '_').replace('/', '_and_');
+}
+
+function createImpactList(healthRemedies: HealthRemedies[]): ImpactFileList {
+  for (let i = 0; i < healthRemedies.length; i++) {
+    for (
+      let recommendationInd = 0;
+      recommendationInd < healthRemedies[i].recommendations.length;
+      recommendationInd++
+    ) {
+      if (healthRemedies[i].recommendations[recommendationInd]) {
+        const recommendation =
+          healthRemedies[i].recommendations[recommendationInd].recommendation;
+        healthRemedies[i].recommendations[
+          recommendationInd
+        ].filename = createFilename(
+          healthRemedies[i].impacted,
+          recommendation
+        ).replace('/', '_');
+      }
+    }
+  }
+  return healthRemedies;
+}
 
 /**
  * Get the paragraphs which are either above the {@code scoreCutOff} and only have {@code maxParagraphs}
@@ -43,7 +80,7 @@ export async function main(opts?: {
     const recommendationResults = recommendationsLimited.map((recommendation) =>
       findCorrelatedParagraphs(
         healthRemedy.impacted,
-        recommendation,
+        recommendation.recommendation,
         opts?.numberOfArticles || 25,
         opts.scoreCutOff
       )
@@ -51,6 +88,12 @@ export async function main(opts?: {
     return await Promise.all(recommendationResults);
   });
   await Promise.all(remediesProm);
+   // Create a streamlined list which points to the other files
+   const impactedList: ImpactFileList = createImpactList(healthRemedies);
+   fs.writeFileSync(
+     `tmp/correlated-paragraphs/impact-recommendation-list.json`,
+     JSON.stringify(impactedList)
+   );
   console.info('Done with all scraping');
 }
 
