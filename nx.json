@@ -31,9 +31,6 @@
     "interfaces": {
       "tags": []
     },
-    "scraper": {
-      "tags": []
-    },
     "article-parser": {
       "tags": []
     },

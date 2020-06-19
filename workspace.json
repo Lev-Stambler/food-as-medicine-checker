@@ -85,63 +85,6 @@
         }
       }
     },
-    "scraper": {
-      "root": "apps/scraper",
-      "sourceRoot": "apps/scraper/src",
-      "projectType": "application",
-      "prefix": "scraper",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/scraper",
-            "main": "apps/scraper/src/main.ts",
-            "tsConfig": "apps/scraper/tsconfig.app.json",
-            "assets": ["apps/scraper/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/scraper/src/environments/environment.ts",
-                  "with": "apps/scraper/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "scraper:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "config": "apps/scraper/.eslintrc",
-            "tsConfig": [
-              "apps/scraper/tsconfig.app.json",
-              "apps/scraper/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/scraper/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/scraper/jest.config.js",
-            "tsConfig": "apps/scraper/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "article-parser": {
       "root": "libs/article-parser",
       "sourceRoot": "libs/article-parser/src",
@@ -447,7 +390,8 @@
             "passWithNoTests": true
           }
         }
-      },
+      }
+    },
     "components": {
       "root": "libs/components",
       "sourceRoot": "libs/components/src",
