@@ -52,6 +52,13 @@
     },
     "word-explorer": {
       "tags": []
+    },
+    "api-frontend": {
+      "tags": []
+    },
+    "api-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["api-frontend"]
     }
   }
 }
