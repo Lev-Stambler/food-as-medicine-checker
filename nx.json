@@ -49,6 +49,12 @@
     },
     "api-express": {
       "tags": []
+    },
+    "components": {
+      "tags": []
+    },
+    "word-explorer": {
+      "tags": []
     }
   }
 }

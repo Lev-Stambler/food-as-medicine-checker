@@ -24,7 +24,11 @@ export const ElainemoranWellnessParser: Parser<HealthRemedies> = {
     const res: HealthRemedies[] = [
       {
         impacted,
-        recommendations: foodItems,
+        recommendations: foodItems.map((foodItem) => {
+          return {
+            recommendation: foodItem,
+          };
+        }),
       },
     ];
     return res;

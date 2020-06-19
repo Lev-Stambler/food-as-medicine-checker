@@ -7,7 +7,9 @@ export enum ArticleParagraphBacksUpClaim {
 type getCorrelationScoreFunction = (
   paragraph: string,
   impacted: string,
-  recommendation: string
+  recommendation: string,
+  impactedSynonyms: string[],
+  recommendationSynonyms: string[]
 ) => ParsedArticleParagraph;
 
 export interface BaseParserOptions {
@@ -15,8 +17,6 @@ export interface BaseParserOptions {
 }
 
 interface ArticleParserOptions extends BaseParserOptions {
-  impacted: string;
-  recommendation: string;
   getCorrelationScore: getCorrelationScoreFunction;
 }
 
@@ -24,10 +24,19 @@ export interface EbiParserOptions extends ArticleParserOptions {
   parsedArticleHead: ParsedArticleHead;
 }
 
+interface RecommendationInfo {
+  filename?: string;
+  recommendation: string;
+}
+
 export interface HealthRemedies {
   impacted: string;
-  recommendations: string[];
+  recommendations: RecommendationInfo[];
 }
+
+export type ImpactFileListItem = HealthRemedies;
+
+export type ImpactFileList = ImpactFileListItem[];
 
 /**
  * Contains the outline information of an article
@@ -38,6 +47,8 @@ export interface ParsedArticleHead {
   xmlFullTextDownloadLink: string;
   impacted: string;
   recommendation: string;
+  impactedSynonyms: string[];
+  recommendationSynonyms: string[];
 }
 
 export interface ParsedArticle {
@@ -60,11 +71,12 @@ export interface Parser<IRet> {
   parserF: (inputSource: string, opts?: any) => Promise<IRet[] | IRet>;
 }
 
-export interface ScholarsParserOpts {
+export interface ScholarsParserOpts extends UrlWithTag {
   tag: {
     recommendation: string;
     impacted: string;
   };
+  impactedSynonyms: string[];
 }
 
 export interface UrlWithTag {
