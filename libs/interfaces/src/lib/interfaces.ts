@@ -81,5 +81,5 @@ export interface ScholarsParserOpts extends UrlWithTag {
 
 export interface UrlWithTag {
   url: string;
-  tag: any;
+  tag?: any;
 }
