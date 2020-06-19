@@ -18,8 +18,10 @@ router.get(
   ) => {
     const query = req.query.q as string;
     const results = await findQueryResults(query, {
-      maxNumberOfParagraphs: parseInt(req.query.maxNumberOfParagraphs as string),
-      numberOfArticlese: parseInt(req.query.numberOfArticles as string),
+      numberOfArticles: parseInt(req.query.numberOfArticles as string),
+      maxNumberOfParagraphs: parseInt(
+        req.query.maxNumberOfParagraphs as string
+      ),
     });
     res.status(200).json(results);
   }
