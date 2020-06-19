@@ -393,6 +393,61 @@
         }
       }
     },
+    "api-express": {
+      "root": "apps/api-express",
+      "sourceRoot": "apps/api-express/src",
+      "projectType": "application",
+      "prefix": "api-express",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api-express",
+            "main": "apps/api-express/src/main.ts",
+            "tsConfig": "apps/api-express/tsconfig.app.json",
+            "assets": ["apps/api-express/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api-express/src/environments/environment.ts",
+                  "with": "apps/api-express/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-express:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/api-express/tsconfig.app.json",
+              "apps/api-express/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api-express/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api-express/jest.config.js",
+            "tsConfig": "apps/api-express/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      },
     "components": {
       "root": "libs/components",
       "sourceRoot": "libs/components/src",

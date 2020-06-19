@@ -47,6 +47,9 @@
       "tags": [],
       "implicitDependencies": ["table-frontend"]
     },
+    "api-express": {
+      "tags": []
+    },
     "components": {
       "tags": []
     },
