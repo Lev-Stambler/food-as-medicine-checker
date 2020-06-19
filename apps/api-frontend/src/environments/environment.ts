@@ -3,4 +3,5 @@
 
 export const environment = {
   production: false,
+  baseApiUrl: 'http://penguin.linux.test:3333/api'
 };
