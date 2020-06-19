@@ -21,7 +21,7 @@ function getTopPercentage<T>(arr: T[], percent = 5): T[] {
 }
 
 function createFilename(impacted: string, recommendation: string): string {
-  return `${impacted}-${recommendation}.json`.replace('/', '_');
+  return `${impacted}-${recommendation}.json`.replace(' ', '_').replace('/', '_and_');
 }
 
 function createImpactList(healthRemedies: HealthRemedies[]): ImpactFileList {
@@ -31,7 +31,6 @@ function createImpactList(healthRemedies: HealthRemedies[]): ImpactFileList {
       recommendationInd < healthRemedies[i].recommendations.length;
       recommendationInd++
     ) {
-      // console.log(healthRemedies[i].recommendations[recommendationInd]);
       if (healthRemedies[i].recommendations[recommendationInd]) {
         const recommendation =
           healthRemedies[i].recommendations[recommendationInd].recommendation;
