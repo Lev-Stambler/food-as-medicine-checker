@@ -2,7 +2,6 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import './app.css';
 
-import { ReactComponent as Logo } from './logo.svg';
 import SearchPage from './pages/search';
 import ResultsPage from './pages/search-result';
 
@@ -14,18 +13,11 @@ export const App = () => {
    */
   return (
     <div className="app">
-      <header className="flex">
-        <Logo width="125" height="125" />
-        <h1>
-          Welcome to Schopal, a search engine abstraction for finding details
-          within open source scholarly research!
-        </h1>
-      </header>
       <main>
         <Router>
           <Switch>
             <Route path="/" exact component={SearchPage} />
-            <Route path="results/:query" component={ResultsPage} />
+            <Route path="/results/" component={ResultsPage} />
           </Switch>
         </Router>
       </main>

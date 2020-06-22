@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { environment } from '../../environments/environment';
 import { ParsedArticleParagraphStandalone } from '@foodmedicine/interfaces';
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
+import { useLocation, useHistory } from 'react-router-dom';
+import { onSearch } from './onsearch';
 import './search-result.css';
+import { SearchBar } from '@foodmedicine/components';
 
-function SingleResult(props: { paragraph: ParsedArticleParagraphStandalone }) {
+function SingleResult(props: {
+  paragraph: ParsedArticleParagraphStandalone;
+  key: string;
+}) {
   return (
     <div
       className="single-result-container"
@@ -18,32 +24,63 @@ function SingleResult(props: { paragraph: ParsedArticleParagraphStandalone }) {
   );
 }
 
-export default function Results(props: { query: string }) {
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+export default function Results() {
+  const queryParams = useQuery();
   const [searchResults, setResults] = useState<
     ParsedArticleParagraphStandalone[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState<string>(null);
-  async function onSearch(query: string): Promise<void> {
+  const query = queryParams.get('query');
+  async function search(query: string): Promise<void> {
     setIsLoading(true);
+    setErrMsg(null);
     try {
       const ret = await fetch(environment.baseApiUrl + `/search?q=${query}`);
       const body = await ret.json();
-      setIsLoading(false);
       setResults(body as ParsedArticleParagraphStandalone[]);
     } catch (e) {
+      console.log(e);
+      setErrMsg('An error occurred in loading your results');
+    } finally {
       setIsLoading(false);
-      setErrMsg('An error occured in loading');
     }
   }
+  const history = useHistory();
+  useEffect(() => {
+    search(query);
+  }, []);
   return (
     <div className="results-container">
-      <div className="loading-container">
-        <ClimbingBoxLoader size={15} color={'#123abc'} loading={isLoading} />
-      </div>
-      {searchResults.map((result) => (
-        <SingleResult paragraph={result} />
-      ))}
+      {isLoading && (
+        <div className="loading-container">
+          <p>Loading your results...</p>
+          <ClimbingBoxLoader size={15} color={'#123abc'} loading={isLoading} />
+        </div>
+      )}
+      {errMsg && <div className="error-container">{errMsg}</div>}
+      {!isLoading && !errMsg && (
+        <div className="result-container">
+          <p>Search again</p>
+          <SearchBar<void>
+            onSearch={(query) => {
+              onSearch(query, history);
+              window.location.reload();
+            }}
+          />
+          <hr />
+          <p>Results for {decodeURIComponent(query)}</p>
+          <hr />
+          <hr />
+          {searchResults.map((result, i) => (
+            <SingleResult key={`single-result-${i}`} paragraph={result} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
