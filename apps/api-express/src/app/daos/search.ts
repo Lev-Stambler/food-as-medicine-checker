@@ -17,7 +17,8 @@ export async function findQueryResults(
   // The query is the impact and the recommendation is left blank
   const articleHeads = await runScholarsScraper(
     query,
-    '',
+    // TODO this is a temporary fix, removing the entire recommendation, impact abstraction should be done
+    query,
     opts?.numberOfArticles || 5
   );
   const downloadProms: Promise<ParsedArticle>[] = articleHeads.map(
