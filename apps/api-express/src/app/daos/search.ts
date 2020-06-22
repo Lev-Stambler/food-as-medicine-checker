@@ -19,7 +19,7 @@ export async function findQueryResults(
     query,
     // TODO this is a temporary fix, removing the entire recommendation, impact abstraction should be done
     query,
-    opts?.numberOfArticles || 5
+    opts?.numberOfArticles || 25
   );
   const downloadProms: Promise<ParsedArticle>[] = articleHeads.map(
     async (articleHead) => {
