@@ -1,9 +1,12 @@
 import React from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import history from './history';
 
 import './app.css';
 
 import { ReactComponent as Logo } from './logo.svg';
-import SearchPage from './pages/search'
+import SearchPage from './pages/search';
+import ResultsPage from './pages/search-result';
 
 export const App = () => {
   /*
@@ -21,7 +24,12 @@ export const App = () => {
         </h1>
       </header>
       <main>
-        <SearchPage />
+        <Router>
+          <Switch>
+            <Route path="/" exact component={SearchPage} />
+            <Route path="results/:query" component={ResultsPage} />
+          </Switch>
+        </Router>
       </main>
     </div>
   );

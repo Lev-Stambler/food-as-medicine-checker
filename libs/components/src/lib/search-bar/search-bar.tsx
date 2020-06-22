@@ -3,7 +3,7 @@ import ReactSearchBox from 'react-search-box';
 import './search-bar.css';
 
 interface SearchBarProps<T> {
-  onSearch: (val: string) => Promise<T>;
+  onSearch: (val: string) => T;
 }
 
 export function SearchBar<T>(props: SearchBarProps<T>) {
