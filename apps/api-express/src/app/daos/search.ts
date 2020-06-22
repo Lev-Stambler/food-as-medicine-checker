@@ -4,7 +4,7 @@ import {
   ParsedArticleParagraph,
   ArticleParagraphBacksUpClaim,
 } from '@foodmedicine/interfaces';
-import * as scholarsScraper from '@foodmedicine/scholars-scraper';
+import { runScholarsScraper } from '@foodmedicine/scholars-scraper';
 import * as articleParser from '@foodmedicine/article-parser';
 
 export async function findQueryResults(
@@ -15,10 +15,11 @@ export async function findQueryResults(
   }
 ): Promise<ParsedArticleParagraphStandalone[]> {
   // The query is the impact and the recommendation is left blank
-  const articleHeads = await scholarsScraper.runScholarsScraper(
+  const articleHeads = await runScholarsScraper(
     query,
-    '',
-    opts?.numberOfArticles || 5
+    // TODO this is a temporary fix, removing the entire recommendation, impact abstraction should be done
+    query,
+    opts?.numberOfArticles || 25
   );
   const downloadProms: Promise<ParsedArticle>[] = articleHeads.map(
     async (articleHead) => {
