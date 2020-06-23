@@ -49,11 +49,14 @@ export async function findQueryResults(
     );
     allParagraphsStandalone.push(...standaloneParagraphs);
   });
-  // sort in descending order
+  // Sort in descending order and remove empty items
   allParagraphsStandalone.sort(
     (a, b) => b.correlationScore - a.correlationScore
   );
-  return allParagraphsStandalone.slice(
+  const allParagraphsStandaloneFiltered = allParagraphsStandalone.filter(
+    (paragraph) => paragraph.body?.trim().length > 0
+  );
+  return allParagraphsStandaloneFiltered.slice(
     0,
     opts?.maxNumberOfParagraphs || allParagraphsStandalone.length
   );
