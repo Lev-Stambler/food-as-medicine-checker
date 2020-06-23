@@ -14,7 +14,7 @@ export async function findQueryResults(
     maxNumberOfParagraphs?: number;
   }
 ): Promise<ParsedArticleParagraphStandalone[]> {
-  // The query is the impact and the recommendation is left blank
+  // The query is passed in twice in order to not interfere with the cross feature
   const articleHeads = await runScholarsScraper(
     query,
     // TODO this is a temporary fix, removing the entire recommendation, impact abstraction should be done
@@ -34,6 +34,8 @@ export async function findQueryResults(
     downloadProms
   );
   const allParagraphsStandalone: ParsedArticleParagraphStandalone[] = [];
+  // For each evaluated article paragraph, form the ParsedArticleParagraphStandalone and push
+  // it to the array of all parsed article paragraphs
   allEvaluatedArticles.forEach((article) => {
     const standaloneParagraphs: ParsedArticleParagraphStandalone[] = article.paragraphs.map(
       (paragraph: ParsedArticleParagraph) => {
