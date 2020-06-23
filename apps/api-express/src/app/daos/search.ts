@@ -52,10 +52,7 @@ export async function findQueryResults(
     (a, b) => b.correlationScore - a.correlationScore
   );
   const allParagraphsStandaloneFiltered = allParagraphsStandalone.filter(
-    (paragraph) =>
-      paragraph.body &&
-      paragraph.body !== '' &&
-      paragraph.body.trim().length > 0
+    (paragraph) => paragraph.body?.trim().length > 0
   );
   return allParagraphsStandaloneFiltered.slice(
     0,

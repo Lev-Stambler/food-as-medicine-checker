@@ -16,7 +16,7 @@ export default function SearchPage() {
           within open source scholarly research!
         </h1>
       </header>
-      <SearchBar<void> onSearch={(query) => onSearch(query, history)} />
+      <SearchBar onSearch={(query) => onSearch(query, history)} />
     </>
   );
 }

@@ -25,7 +25,7 @@ export function SearchBar<T>(props: SearchBarProps<T>) {
         onChange={(val) => setSearchVal(val)}
         callback={(record) => console.log(record)}
       />
-      <button aria-label="search button" onClick={() => props.onSearch(searchVal)}>Search</button>
+      <button onClick={() => props.onSearch(searchVal)}>Search</button>
     </div>
   );
 }

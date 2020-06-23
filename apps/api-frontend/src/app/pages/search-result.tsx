@@ -14,7 +14,6 @@ function SingleResult(props: {
   return (
     <div
       className="single-result-container"
-      aria-label="search-result"
       onClick={() => window.open(props.paragraph.head.xmlFullTextDownloadLink)}
     >
       <h4 aria-label="paper's title">{props.paragraph.head.title}</h4>
