@@ -25,7 +25,6 @@ async function getParagraphsFromFile(
   filename: string,
   cb: (parsed: ParsedArticleParagraphStandalone[]) => void
 ) {
-  console.log(filename)
   fs.readFile(`${ALL_PARAGRAPHS_BASE_PATH}/${filename}`, (err, data) => {
     const json = JSON.parse(data.toString());
     cb(json as ParsedArticleParagraphStandalone[]);
@@ -66,5 +65,5 @@ export async function storeRatedParagraphs() {
   );
   await Promise.all(storeRatedParagraphsPerArticleProms);
   copyAllJsonPaths();
-  console.log('Done with parsing out related paragraphs');
+  console.info('Done with parsing out related paragraphs');
 }

@@ -1,6 +1,7 @@
 import {
   ParsedArticleHead,
   ScholarsParserOpts,
+  UrlWithTag,
 } from '@foodmedicine/interfaces';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Scraper } from '@foodmedicine/scraper';
@@ -33,14 +34,15 @@ export async function runScholarsScraper(
   pageSize = 25
 ): Promise<ParsedArticleHead[]> {
   const queryUrl = createScholarsUrl(impacted, recommendation, pageSize);
+  const impactedSynonyms = await getSynonyms(impacted);
   const remedyScraper = new Scraper<ParsedArticleHead>(parsers.ScholarsParser, {
     url: queryUrl,
     tag: {
       recommendation: recommendation,
       impacted: impacted,
+      impactedSynonyms,
     },
-    impactedSynonyms: await getSynonyms(impacted),
-  } as ScholarsParserOpts);
+  } as UrlWithTag);
 
   const articleHeads = await remedyScraper.run();
   return articleHeads;
