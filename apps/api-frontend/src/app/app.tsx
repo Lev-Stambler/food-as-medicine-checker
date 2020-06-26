@@ -2,8 +2,8 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import './app.css';
 
-import SearchPage from './pages/search';
-import ResultsPage from './pages/search-result';
+import SearchPage from './pages/search-pages/search';
+import ResultsPage from './pages/search-pages/search-result';
 
 export const App = () => {
   /*
