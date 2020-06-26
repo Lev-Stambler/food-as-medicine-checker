@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { ParsedArticleParagraphStandalone } from '@foodmedicine/interfaces';
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 import { useLocation, useHistory } from 'react-router-dom';
