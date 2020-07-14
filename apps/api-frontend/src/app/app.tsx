@@ -4,6 +4,7 @@ import './app.css';
 
 import SearchPage from './pages/search-pages/search';
 import ResultsPage from './pages/search-pages/search-result';
+import InfoPage from './pages/info-page/info'
 
 export const App = () => {
   /*
@@ -18,6 +19,7 @@ export const App = () => {
           <Switch>
             <Route path="/" exact component={SearchPage} />
             <Route path="/results/" component={ResultsPage} />
+            <Route path="/info" component={InfoPage} />
           </Switch>
         </Router>
       </main>

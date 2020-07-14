@@ -1,12 +1,18 @@
-/*
- * Remove template code below
- */
-
 .app {
   font-family: sans-serif;
   min-width: 300px;
   max-width: 600px;
   margin: 50px auto;
+}
+
+.app a {
+  text-decoration: none;
+  color: #005cc5;
+}
+
+.app .bold {
+  font-weight: 700;
+  display: inline-block;
 }
 
 .app .gutter-left {
@@ -35,7 +41,8 @@
 }
 
 .app p {
-  text-align: center;
+  letter-spacing: 2px;
+  line-height: 1.5;
 }
 
 .app h1 {
@@ -50,27 +57,12 @@
   margin: 40px 0 10px 0;
 }
 
-.app .resources {
-  text-align: center;
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-gap: 9px;
-  grid-template-columns: 1fr 1fr;
-}
-
-.app .resource {
-  color: #0094ba;
-  height: 36px;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
-  padding: 3px 9px;
-  text-decoration: none;
-}
-
-.app .resource:hover {
-  background-color: rgba(68, 138, 255, 0.04);
+.app .loading-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .app pre {
