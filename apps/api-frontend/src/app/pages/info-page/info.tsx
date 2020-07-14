@@ -7,7 +7,7 @@ export default function InfoPage() {
       <h3>Info about Schopal</h3>
       <p>
         Schopal is a search engine for Scholarly articles. Using open source APIs, Schopal finds scholarly articles, and then analyzes them according to your search.
-        Schopal will then return results <div className="bold">by paragraph</div> rather than by article. Thus, you may see the same article appear twice.
+        Schopal will then return results <b>by paragraph</b> rather than by article. Thus, you may see the same article appear twice.
       </p>
       <p>
         "Why by paragraph?" you may ask. Scholarly articles are often long. People simply looking for certain claims, studies, or results can now spend a lot less time
