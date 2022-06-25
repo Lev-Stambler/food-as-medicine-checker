@@ -34,7 +34,7 @@
     "express": "4.17.1",
     "fs": "0.0.1-security",
     "natural": "^2.1.5",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "promise-hook": "^0.1.4",
     "react": "16.12.0",
     "react-collapsible": "^2.8.0",
